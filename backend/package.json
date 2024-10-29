@@ -1,0 +1,49 @@
+{
+  "name": "ITFE",
+  "version": "0.0.0",
+  "patch": "0",
+  "description": "ITFE - backend",
+  "main": "index.js",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production tsc & resolve-tspaths",
+    "start": "cross-env NODE_ENV=production node -r ts-node/register/transpile-only -r tsconfig-paths/register --env-file=.env --env-file=.env.local dist/index.js",
+    "start:prod": "cross-env NODE_ENV=production tsc & resolve-tspaths & cross-env NODE_ENV=production node --env-file=.env --env-file=.env.local dist/index.js",
+    "start:dev": "npm run start:dev:tsnodedev",
+    "start:dev:ts": "cross-env NODE_ENV=development tsc --watch & resolve-tspaths",
+    "start:dev:node": "cross-env NODE_ENV=development node -r tsconfig-paths/register --env-file=.env --env-file=.env.local --watch  dist/index.js",
+    "start:dev:tsnodedev": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --env-file=.env --env-file=.env.local src/index.ts",
+    "start:debug": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --inspect --env-file=.env --env-file=.env.local src/index.ts",
+    "lint": "cross-env NODE_ENV=development eslint .",
+    "test": "cross-env NODE_ENV=test  jest",
+    "test:watch": "cross-env NODE_ENV=test jest --watch",
+    "test:cov": "cross-env NODE_ENV=test jest --coverage"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "jest": "^29.7.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.6.0",
+    "@types/cors": "^2.8.17",
+    "@types/dotenv": "^8.2.0",
+    "@types/eslint__js": "^8.42.3",
+    "@types/express": "^4.17.21",
+    "@types/helmet": "^4.0.0",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.10",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.0",
+    "eslint-plugin-jsdoc": "^48.5.2",
+    "globals": "^15.8.0",
+    "resolve-tspaths": "^0.8.19",
+    "ts-jest": "^29.1.5",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^7.16.0"
+  }
+}
