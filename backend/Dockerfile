@@ -21,7 +21,6 @@ FROM node:20-alpine3.20 AS production
 RUN echo NODE_ENV: production
 WORKDIR /var/www
 COPY --chown=node:node .env .
-COPY --chown=node:node .env.local .
 COPY --from=base /var/www/package*.json .  
 COPY --from=build /var/www/node_modules ./node_modules
 COPY --from=build /var/www/dist ./dist
