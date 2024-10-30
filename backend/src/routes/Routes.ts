@@ -1,23 +1,20 @@
-// import { Application } from 'express';
-// import Locals from './Locals';
-// import Log from '../middlewares/Log';
+import { Router, Request, Response } from "express";
+import { UserRoute } from "./userRoute";
+import { Repository } from "@src/repositories/Repository";
 
-// import webRouter from './../routes/Web';
-// import apiRouter from './../routes/Api';
 
-// class Routes {
-// 	public mountWeb(_express: Application): Application {
-// 		Log.info('Routes :: Mounting Web Routes...');
+export class Routes {
+  router:Router = Router()
+  userRoute: UserRoute
 
-// 		return _express.use('/', webRouter);
-// 	}
+  constructor(repository: Repository){
 
-// 	public mountApi(_express: Application): Application {
-// 		const apiPrefix = Locals.config().apiPrefix;
-// 		Log.info('Routes :: Mounting API Routes...');
+    this.userRoute = new UserRoute(repository)
 
-// 		return _express.use(`/${apiPrefix}`, apiRouter);
-// 	}
-// }
+    this.router.use("/user", this.userRoute.router);
+  }
 
-// export default new Routes;
+}
+
+
+

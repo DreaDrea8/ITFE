@@ -1,5 +1,0 @@
-enum ERRORS {
-  HELLO_USECASE_FAIL = 'HELLO_USECASE_FAIL',
-}
-
-export default ERRORS; 

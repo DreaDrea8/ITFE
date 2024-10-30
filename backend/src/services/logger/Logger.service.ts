@@ -1,7 +1,5 @@
 import {LogId} from '@tools/range';
-import { Inversify } from '@inversify/Inversify';
 import DateFormatter from '@tools/DateFormatter';
-import LoggerService from '@service/logger/Logger.service';
 
 enum LogTypeMessageEnum {
   DEFAULT = '',
@@ -19,27 +17,12 @@ enum LogTypeColorEnum {
   DEFAULT = '\x1b[0m'
 }
 
-
-export default class LoggerServiceReal extends LoggerService {
-  private inversify: Inversify;
+export default class LoggerService {
 
   private inConsole: boolean;
-  private inFile: boolean;
-  private inDatabase: boolean;
 
-  private readonly logFolder:string = 'logs';
-  private readonly logPath:string = process.env.API_LOGS_PATH ?? 'c:/users';
-  private readonly logFile:string = 'index.log';
-  private customLogPath:string|undefined;
-  private customLogFolder:string|undefined;
-  private customLogfile:string|undefined;
-
-  constructor  (inversify:Inversify, inConsole?: boolean, inFile?: boolean, inDatabase?: boolean) {
-    super();
-    this.inversify = inversify;
+  constructor  (inConsole?: boolean) {
     this.inConsole = inConsole ?? true;
-    this.inFile = inFile ?? true;
-    this.inDatabase = inDatabase ?? false;
   }
 
   public async default(message: string): Promise<void> {
@@ -71,27 +54,7 @@ export default class LoggerServiceReal extends LoggerService {
     if (this.inConsole) {
       console.log(colorMessage, content);
     }
-    if (this.inFile) {
-      const logPath: string = this.customLogPath ?? this.logPath;
-      const logFolder: string = this.customLogFolder ?? this.logFolder;
-      const logFile: string = this.customLogfile ?? this.logFile;
-
-      await this.inversify.fileSystemService.updateFileContent(logPath, logFolder, logFile, content);
-    }
-    if (this.inDatabase) {
-      console.log('this.inDatabase : true');
-    }
   }
-
-
-	public custom (customLogPath:string|undefined , customLogFolder:string|undefined , customLogfile:string|undefined ): this {
-    this.customLogPath = customLogPath;
-    this.customLogFolder = customLogFolder;
-    this.customLogfile = customLogfile;
-    
-    return this;
-	}
-
 
   private contentFormatter = (id: number|string, time:string, typeMessage:string, message:string, detail?:string): string => {
     return `${id} - ${time} : [${typeMessage}] ${message} ${detail? '\n\t MORE DETAILS:'+ detail: ''}`;

@@ -1,0 +1,125 @@
+services:
+  proxy:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: ./conf/docker/nginx/Dockerfile
+    restart: always
+    ports:
+      - 80:80
+    env_file:
+      - .env
+      - .env.local
+    volumes:
+      - ./frontend/build:/usr/share/nginx/html
+    networks:
+      - nginx_network
+
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: ./conf/docker/frontend/Dockerfile
+      target: ${NODE_ENV}
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      NODE_ENV: ${NODE_ENV}
+    env_file:
+      - .env
+      - .env.local
+    volumes:
+      - ./frontend/build:/usr/share/nginx/html
+    networks:
+      - nginx_network
+  
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+      target: ${NODE_ENV}
+    restart: always
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+      - .env.local
+    volumes:
+      - ./backend/src:/var/www/src
+    networks:
+      - nginx_network
+      - mariadb_network
+    depends_on:
+      mariadb:
+        condition: service_healthy
+  
+  # mariadb1:
+  #   image: mariadb:11.5.2
+  #   container_name: mariadb1
+  #   ports:
+  #     - 3306:3306
+  #   networks:
+  #     - mariadb_network
+  #   volumes:
+  #     - mariadb_data:/var/lib/mysql
+  #     - ./sql:/docker-entrypoint-initdb.d
+  #     - ./.my-healthcheck.cnf:/var/lib/mysql/.my-healthcheck.cnf
+  #   environment:
+  #     MYSQL_USER: healthcheck
+  #     MYSQL_USER_PASSWORD: ahEI)v2M&mW&gsdd:t"K20{lP>3PKo`b
+  #   env_file:
+  #     - .env
+  #     - .env.local
+  #   healthcheck:
+  #     test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized" ]
+  #     start_period: 10s
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 3
+
+  mariadb:
+    image: mariadb:11.5.2
+    container_name: mariadb
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized" ]
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "app"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+    networks:
+      - mariadb_network
+  
+  
+  pma:
+    container_name: pma
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8085:80
+    env_file:
+      - .env
+      - .env.local
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      - mariadb_network
+
+networks:
+  nginx_network:
+    driver: bridge
+  mariadb_network:
+    driver: bridge
+
+volumes:
+  mariadb_data:
