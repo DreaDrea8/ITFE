@@ -67,14 +67,13 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: "password"
-      MYSQL_DATABASE: "app"
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: app
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d
     networks:
       - mariadb_network
-  
   
   pma:
     container_name: pma
@@ -82,9 +81,10 @@ services:
     restart: always
     ports:
       - 8085:80
-    env_file:
-      - .env
-      - .env.local
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: root
+      PMA_PASSWORD: password
     depends_on:
       mariadb:
         condition: service_healthy
