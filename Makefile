@@ -6,15 +6,15 @@ SERVICE_NAME=my_service_name
 
 # Commande pour démarrer les conteneurs
 start:
-    docker compose -f $(DOCKER_COMPOSE_FILE) up -d
+	docker compose -f $(DOCKER_COMPOSE_FILE) up -d
 
 # Commande pour arrêter les conteneurs
 stop:
-    docker compose -f $(DOCKER_COMPOSE_FILE) down
+	docker compose -f $(DOCKER_COMPOSE_FILE) down
 
 # Commande pour redémarrer les conteneurs
 restart: stop start
 
 # Commande pour reconstruire les conteneurs
 build:
-    docker compose -f $(DOCKER_COMPOSE_FILE) up -d --build
+	docker compose up backend pma mariadb -d --build
