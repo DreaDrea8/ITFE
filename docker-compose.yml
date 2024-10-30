@@ -19,18 +19,18 @@ services:
     container_name: frontend
     build:
       context: .
-      dockerfile: ./conf/docker/frontend/Dockerfile
+      dockerfile: ./frontend/Dockerfile
       target: ${NODE_ENV}
     restart: always
     ports:
-      - 80:80
+      - 5173:5173
     environment:
       NODE_ENV: ${NODE_ENV}
     env_file:
       - .env
       - .env.local
     volumes:
-      - ./frontend/build:/usr/share/nginx/html
+      - ./frontend/src:/var/www/src
     networks:
       - nginx_network
   
