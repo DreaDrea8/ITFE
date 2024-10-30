@@ -54,30 +54,6 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
-  
-  # mariadb1:
-  #   image: mariadb:11.5.2
-  #   container_name: mariadb1
-  #   ports:
-  #     - 3306:3306
-  #   networks:
-  #     - mariadb_network
-  #   volumes:
-  #     - mariadb_data:/var/lib/mysql
-  #     - ./sql:/docker-entrypoint-initdb.d
-  #     - ./.my-healthcheck.cnf:/var/lib/mysql/.my-healthcheck.cnf
-  #   environment:
-  #     MYSQL_USER: healthcheck
-  #     MYSQL_USER_PASSWORD: ahEI)v2M&mW&gsdd:t"K20{lP>3PKo`b
-  #   env_file:
-  #     - .env
-  #     - .env.local
-  #   healthcheck:
-  #     test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized" ]
-  #     start_period: 10s
-  #     interval: 10s
-  #     timeout: 5s
-  #     retries: 3
 
   mariadb:
     image: mariadb:11.5.2
