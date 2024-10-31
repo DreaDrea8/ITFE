@@ -18,8 +18,13 @@ export class Routes {
     this.router.use("/user", this.userRoute.router)
     this.router.use("/file", this.fileRoute.router)
   }
-
+  private initializeRoutes() {
+    this.router.post("/register", async (req: Request, res: Response) => {
+      try {
+        //await this.registerController.register(req, res);
+      } catch (error) {
+        res.status(500).json({ message: "An unexpected error occurred." });
+      }
+    });
+  }
 }
-
-
-

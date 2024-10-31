@@ -39,10 +39,10 @@ export default class App {
 		this.server = this.listen()
   }
 
-	private async setup() {
-		this.app.use(cors(this.corsOptions))
-		this.app.use(express.json())
-	}
+  private async setup() {
+    this.app.use(cors(this.corsOptions));
+    this.app.use(express.json());
+  }
 
 	private mountHealthCheck() {
 		this.app.get("/api/health", (req: Request, res: Response) => {
@@ -85,6 +85,3 @@ export default class App {
 	}
 
 }
-
-
-

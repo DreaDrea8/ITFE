@@ -14,4 +14,3 @@ export class Repository {
     this.fileRepository = new FileRepository(this.database)
   }
 }
-
