@@ -11,7 +11,7 @@ Partage de fichier volumineux
 | proxy   | Reverse proxy         | NGINX                       | Oui           | localhost          | [Fichier de config](/conf) |
 | frontend| Frontend              | Vite + React ...            | Non           | localhost/         | [Frontend](/Frontend) |
 | backend | API                   | Node + TypeScript + Express | Non           | localhost/api      | [Backend](/backend) |
-| mariadb | Base de données       | MariaDB                     | Non           | Via PMA ou backend | |
+| mariadb | Base de données       | MariaDB                     | Oui           | localhost:3306     | |
 | pma     | Admin base de données | phpMyAdmin                  | Non           | localhost/admin-db | |
 
 ## Instalation

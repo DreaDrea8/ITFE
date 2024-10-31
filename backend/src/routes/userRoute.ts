@@ -1,6 +1,7 @@
-import { GetAllUser } from "@src/controllers/user/GetAllUser";
-import { Repository } from "@src/repositories/Repository";
 import { Router, Request, Response } from "express";
+
+import { Repository } from "@src/repositories/Repository"
+import { GetAllUser } from "@src/controllers/user/GetAllUser"
 
 
 export class UserRoute {

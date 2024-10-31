@@ -17,7 +17,7 @@ enum LogTypeColorEnum {
   DEFAULT = '\x1b[0m'
 }
 
-export default class LoggerService {
+export class LoggerService {
 
   private inConsole: boolean;
 
@@ -60,3 +60,6 @@ export default class LoggerService {
     return `${id} - ${time} : [${typeMessage}] ${message} ${detail? '\n\t MORE DETAILS:'+ detail: ''}`;
   };
 }
+
+const loggerService = new LoggerService()
+export default loggerService

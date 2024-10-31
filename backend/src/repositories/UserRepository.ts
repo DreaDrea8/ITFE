@@ -1,5 +1,6 @@
-import { User, UserDtoInterface } from "@src/entities/User";
-import { Connection } from "mysql2";
+import { Connection } from "mysql2"
+
+import { User, UserDtoInterface } from "@src/entities/User"
 
 export class UserRepository {
   database: Connection
