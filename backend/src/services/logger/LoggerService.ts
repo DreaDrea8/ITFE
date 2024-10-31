@@ -17,7 +17,7 @@ enum LogTypeColorEnum {
   DEFAULT = '\x1b[0m'
 }
 
-export default class LoggerService {
+export class LoggerService {
 
   private inConsole: boolean;
 
@@ -31,6 +31,17 @@ export default class LoggerService {
 
   public async info(message: string): Promise<void> {
     await this.logMessage(LogTypeMessageEnum.INFO, LogTypeColorEnum.BLUE, message);
+  }
+
+  public async obj(obj:any): Promise<void> {
+    const id: number | void = LogId.next().value;
+    const time: string = DateFormatter.toFrenchFormat(new Date()); 
+    const content: string = this.contentFormatter(id ?? '', time, LogTypeMessageEnum.INFO, 'Object');
+
+    // Log
+    if (this.inConsole) {
+      console.log(LogTypeColorEnum.BLUE, content, ...(Array.isArray(obj) ? obj : [obj]));
+   }
   }
 
   public async success(message: string): Promise<void> {
@@ -60,3 +71,6 @@ export default class LoggerService {
     return `${id} - ${time} : [${typeMessage}] ${message} ${detail? '\n\t MORE DETAILS:'+ detail: ''}`;
   };
 }
+
+const loggerService = new LoggerService()
+export default loggerService

@@ -3,51 +3,47 @@ services:
     container_name: nginx
     build:
       context: .
-      dockerfile: ./conf/docker/nginx/Dockerfile
-    restart: always
+      dockerfile: ./conf/nginx/Dockerfile
     ports:
       - 80:80
+      - 443:443
+    restart: always
     env_file:
       - .env
-      - .env.local
-    volumes:
-      - ./frontend/build:/usr/share/nginx/html
     networks:
       - nginx_network
+    depends_on:
+      - frontend
+      - backend
+      - pma
 
   frontend:
     container_name: frontend
     build:
       context: .
-      dockerfile: ./conf/docker/frontend/Dockerfile
-      target: ${NODE_ENV}
+      dockerfile: ./frontend/Dockerfile
+      target: ${ENV}
     restart: always
-    ports:
-      - 80:80
     environment:
       NODE_ENV: ${NODE_ENV}
     env_file:
       - .env
-      - .env.local
     volumes:
-      - ./frontend/build:/usr/share/nginx/html
+      - ./frontend:/var/www
     networks:
       - nginx_network
-  
+
   backend:
     container_name: backend
     build:
       context: .
       dockerfile: ./backend/Dockerfile
-      target: ${NODE_ENV}
+      target: ${ENV}
     restart: always
-    ports:
-      - 3000:3000
     env_file:
       - .env
-      - .env.local
     volumes:
-      - ./backend/src:/var/www/src
+      - ./backend:/var/www
     networks:
       - nginx_network
       - mariadb_network
@@ -56,31 +52,29 @@ services:
         condition: service_healthy
 
   mariadb:
-    image: mariadb:11.5.2
     container_name: mariadb
-    healthcheck:
-      test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized" ]
-      start_period: 5s
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    ports:
-      - 3306:3306
+    image: mariadb:11.5.2
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: app
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d
+    ports :
+      - 3306:3306
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized" ]
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - mariadb_network
-  
+
   pma:
     container_name: pma
     image: phpmyadmin
     restart: always
-    ports:
-      - 8085:80
     environment:
       PMA_HOST: mariadb
       PMA_USER: root
@@ -90,6 +84,7 @@ services:
         condition: service_healthy
     networks:
       - mariadb_network
+      - nginx_network
 
 networks:
   nginx_network:

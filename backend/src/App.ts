@@ -1,23 +1,23 @@
 import cors from "cors";
-import { Server } from "http";
-import express, { Application, NextFunction, Request, Response } from "express";
 import mysql from "mysql2";
+import { Server } from "http";
+import { Connection } from "mysql2";
+import express, { Application, NextFunction, Request, Response } from "express";
 
 import ERRORS from "./commons/Error";
-import LoggerService from "./services/logger/Logger.service";
 import { Routes } from "./routes/Routes";
 import { Repository } from "./repositories/Repository";
-import { Connection } from "mysql2";
+import loggerService from "./services/logger/LoggerService";
+import { jsonContent } from "./types/jsonContent";
 
 export default class App {
   private readonly port: number | string = process.env.PORT ?? 3000;
   private readonly host: string = process.env.HOST ?? "localhost";
   private readonly corsOptions = {
-    origin: "*",
+    origin: "localhost",
   };
   private server: Server;
   public app: Application;
-  public loggerService = new LoggerService();
   private readonly database: Connection = mysql.createConnection({
     host: "mariadb",
     port: 3306,
@@ -42,22 +42,25 @@ export default class App {
   }
 
   private mountHealthCheck() {
-    this.app.get("/health", (req: Request, res: Response) => {
-      const response: { message: string } = { message: "Healthy!!" };
-      this.loggerService.success("Api health");
-      res.status(200).json(response);
+    this.app.get("/api/health", (req: Request, res: Response) => {
+      const result: jsonContent = {
+        message: "Infos retrieved successfully",
+        data: "Healthy!!",
+        error: null,
+      };
+      loggerService.success("Api health");
+      res.status(200).json(result);
     });
   }
 
   private mountAPIRoutes() {
     const routes = new Routes(this.repository);
     this.app.use("/api", routes.router);
-    this.app.use("/register", routes.router);
   }
 
   private mountHandleError() {
     this.app.use((req: Request, res: Response, next: NextFunction) => {
-      this.loggerService.error(ERRORS.ROUTE_NOT_FOUND);
+      loggerService.error(ERRORS.ROUTE_NOT_FOUND);
       res.status(404).json({
         message: "You are lost.",
         data: "",

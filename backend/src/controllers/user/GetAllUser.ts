@@ -12,7 +12,7 @@ export class GetAllUser {
 
   async execute (req: Request, res: Response ){
     try {
-      const users = await this.repository.userRepository.getAll()
+      const users = await 1
       const result:jsonContent = {
         message: 'Infos retrieved successfully',
         data: users, 

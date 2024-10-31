@@ -1,17 +1,21 @@
 import { Router, Request, Response } from "express";
-import { RegisterController } from "../controllers/register/RegisterController";
-import { Repository } from "../repositories/Repository";
+
+import { FileRoute } from "./fileRoute";
 import { UserRoute } from "./userRoute";
+import { Repository } from "@src/repositories/Repository";
+import loggerService from "@src/services/logger/LoggerService";
 
 export class Routes {
   router: Router = Router();
   userRoute: UserRoute;
+  fileRoute: FileRoute;
 
   constructor(repository: Repository) {
     this.userRoute = new UserRoute(repository);
-    console.log("api");
+    this.fileRoute = new FileRoute(repository);
 
     this.router.use("/user", this.userRoute.router);
+    this.router.use("/file", this.fileRoute.router);
   }
   private initializeRoutes() {
     this.router.post("/register", async (req: Request, res: Response) => {

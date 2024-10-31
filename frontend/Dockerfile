@@ -1,9 +1,9 @@
 FROM node:20-alpine3.20 AS base
 RUN echo "Base image: node:20-alpine3.20"
-COPY --chown=node:node ./backend/package*.json /
+COPY --chown=node:node ./frontend/package*.json /
 WORKDIR /var/www
 RUN npm i
-COPY --chown=node:node ./backend .
+COPY --chown=node:node ./frontend .
 EXPOSE 3000
 
 # Étape 1 : Environnement de développement
@@ -24,4 +24,4 @@ COPY --chown=node:node .env .
 COPY --from=base /var/www/package*.json .  
 COPY --from=build /var/www/node_modules ./node_modules
 COPY --from=build /var/www/dist ./dist
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "preview"]
