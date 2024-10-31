@@ -1,0 +1,128 @@
+openapi: '3.0.3'
+info:
+  title: API Title
+  version: '1.0'
+servers:
+  - url: https://localhost
+paths:
+  /api/health:
+    get:
+      summary: Check if backend work
+      description: Just check
+      responses:
+        '201':
+          description: Fichier ajouté avec succès.
+        '400':
+          description: Erreur de validation.
+
+
+  /api/file:
+    post:
+      summary: Ajouter un fichier
+      description: Ajoute un nouveau fichier.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "report.pdf"
+                content:
+                  type: string
+                  example: "Base64-encoded content"
+      responses:
+        '201':
+          description: Fichier ajouté avec succès.
+        '400':
+          description: Erreur de validation.
+
+    get:
+      summary: Obtenir tous les fichiers
+      description: Récupère la liste de tous les fichiers.
+      responses:
+        '200':
+          description: Liste des fichiers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: "report.pdf"
+
+  /api/file/{id}:
+    get:
+      summary: Obtenir un fichier
+      description: Récupère les détails d'un fichier par son identifiant.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID du fichier
+      responses:
+        '200':
+          description: Détails du fichier.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "report.pdf"
+        '404':
+          description: Fichier non trouvé.
+
+    delete:
+      summary: Supprimer un fichier
+      description: Supprime un fichier par son identifiant.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID du fichier
+      responses:
+        '204':
+          description: Fichier supprimé avec succès.
+        '404':
+          description: Fichier non trouvé.
+
+  /api/file/:
+    patch:
+      summary: Mettre à jour un fichier partiellement
+      description: Modifie partiellement un fichier existant.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                name:
+                  type: string
+                  example: "updated_report.pdf"
+      responses:
+        '200':
+          description: Fichier mis à jour.
+        '400':
+          description: Erreur de validation.
+

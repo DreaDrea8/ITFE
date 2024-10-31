@@ -13,10 +13,12 @@ create table if not exists user (
 -- Création de la table `file`
 create table if not exists `file` (
     id int primary key auto_increment,
-    data varchar(255) not null,
     title varchar(255) not null,
     description text,
     user_id int not null,
+    reference varchar(255) not null,
+    signature varchar(255) not null,
+    size int not null,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp on update current_timestamp,
     foreign key (user_id) references `user`(id)
@@ -41,8 +43,8 @@ insert into `user` (login, password) values ('roger', 'roger');
 insert into `user` (login, password) values ('jean', 'jean');
 
 -- Insertion de données dans `file`
-insert into `file` (data, title, description, user_id) values ('file1', 'file1', 'file1', 1);
-insert into `file` (data, title, description, user_id) values ('file2', 'file2', 'file2', 2);
+insert into `file` (reference, title, description, user_id) values ('file1', 'file1', 'file1', 1);
+insert into `file` (reference, title, description, user_id) values ('file2', 'file2', 'file2', 2);
 
 -- Insertion de données dans `share`
 insert into share (user_id, file_id, link) values (1, 1, 'file1');

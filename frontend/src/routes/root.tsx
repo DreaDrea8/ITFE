@@ -1,7 +1,7 @@
 export default function Root() {
     return (
       <>
-        <h1>ITFE</h1>
+        <h1>ITFA</h1>
         <input type='file'/>
       </>
     );
