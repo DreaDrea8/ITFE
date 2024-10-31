@@ -51,7 +51,6 @@ export default class App {
         data: 'Healthy!!', 
         error: null
       }
-
 			loggerService.success('Api health')
 			res.status(200).json(result)
 		})

@@ -15,6 +15,29 @@ paths:
         '400':
           description: Erreur de validation.
 
+  /api/user:
+    post:
+      summary: Check if backend work
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                  example: "robert"
+                password:
+                  type: string
+                  example: "robert"
+      description: Just check
+      responses:
+        '201':
+          description: Fichier ajouté avec succès.
+        '400':
+          description: Erreur de validation.
+
 
   /api/file:
     post:

@@ -4,6 +4,7 @@ import { Repository } from "@src/repositories/Repository"
 import { GetAllUser } from "@src/controllers/user/GetAllUser"
 
 import { AddUser } from "@src/controllers/user/AddUser";
+import loggerService from "@src/services/logger/LoggerService";
 
 export class UserRoute {
   router: Router = Router();
@@ -11,7 +12,6 @@ export class UserRoute {
   addUser: AddUser;
 
   constructor(repository: Repository) {
-    console.log("userRoute");
     this.getAllUser = new GetAllUser(repository);
     this.addUser = new AddUser(repository);
 

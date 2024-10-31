@@ -12,7 +12,7 @@ export class GetFiles {
     this.repository = repository
   }
 
-  async execute (req: Request, res: Response ){
+  execute = async (req: Request, res: Response) =>{
     try {
       const fileRepositoryResult = await this.repository.fileRepository.getFiles()
 

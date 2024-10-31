@@ -2,22 +2,22 @@ export interface UserDtoInterface {
   id: number;
   login: string;
   password: string;
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export class User {
   id: number;
   login: string;
   password: string;
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 
   constructor(dto: UserDtoInterface) {
     this.id = dto.id;
     this.login = dto.login;
     this.password = dto.password;
-    this.created_at = dto.created_at;
-    this.updated_at = dto.updated_at;
+    this.createdAt = dto.createdAt;
+    this.updatedAt = dto.updatedAt;
   }
 }

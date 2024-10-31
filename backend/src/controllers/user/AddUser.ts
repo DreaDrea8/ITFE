@@ -2,7 +2,8 @@ import { User } from "@src/entities/User";
 import { Repository } from "@src/repositories/Repository";
 import { jsonContent } from "@src/types/jsonContent";
 import { Request, Response } from "express";
-import { UserRepository } from "@src/repositories/UserRepository";
+import loggerService from "@src/services/logger/LoggerService";
+import { addUserDtoInterface } from "@src/repositories/UserRepository";
 
 export class AddUser {
   repository: Repository;
@@ -11,13 +12,14 @@ export class AddUser {
     this.repository = repository;
   }
 
-  async execute(req: Request, res: Response) {
+  execute = async (req: Request, res: Response) => {
     try {
       const { login, password } = req.body;
-      const newUser = await this.repository.userRepository.createUser(
-        login,
-        password
-      );
+      const dto: addUserDtoInterface = {
+        login: login,
+        password: password
+      }
+      const newUser = await this.repository.userRepository.addUser(dto)
       const result: jsonContent = {
         message: "Infos retrieved successfully",
         data: newUser,
