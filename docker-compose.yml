@@ -44,6 +44,7 @@ services:
       - .env
     volumes:
       - ./backend:/var/www
+      - /var/www/node_modules
     networks:
       - nginx_network
       - mariadb_network

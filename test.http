@@ -1,4 +1,15 @@
 ###
+GET https://localhost
+
+
+
+###
+GET https://localhost/api/health
+Content-Type: application/json;
+
+
+
+###
 POST https://localhost/api/user
 Content-Type: application/json;
 

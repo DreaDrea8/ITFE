@@ -9,7 +9,6 @@ EXPOSE 3000
 # Étape 1 : Environnement de développement
 FROM base AS development
 RUN echo NODE_ENV: development
-RUN npm install --only=dev
 CMD ["npm", "run", "start:dev"]
 
 # Étape 2 : Environnement de build
