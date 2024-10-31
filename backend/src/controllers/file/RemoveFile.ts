@@ -13,7 +13,7 @@ export class RemoveFile {
     this.repository = repository
   }
 
-  async execute (req: Request, res: Response ){
+  execute = async (req: Request, res: Response) =>{
     try {
       const dto: removeFileDtoInterface = {id: 1}
       const fileRepositoryResult = await this.repository.fileRepository.removeFile(dto)

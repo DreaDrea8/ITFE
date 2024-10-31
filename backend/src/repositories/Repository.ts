@@ -9,9 +9,9 @@ export class Repository {
   fileRepository: FileRepository
 
   constructor(database: Connection) {
+    
     this.database = database
     this.userRepository = new UserRepository(this.database)
     this.fileRepository = new FileRepository(this.database)
   }
 }
-

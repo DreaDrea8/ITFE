@@ -33,6 +33,17 @@ export class LoggerService {
     await this.logMessage(LogTypeMessageEnum.INFO, LogTypeColorEnum.BLUE, message);
   }
 
+  public async obj(obj:any): Promise<void> {
+    const id: number | void = LogId.next().value;
+    const time: string = DateFormatter.toFrenchFormat(new Date()); 
+    const content: string = this.contentFormatter(id ?? '', time, LogTypeMessageEnum.INFO, 'Object');
+
+    // Log
+    if (this.inConsole) {
+      console.log(LogTypeColorEnum.BLUE, content, ...(Array.isArray(obj) ? obj : [obj]));
+   }
+  }
+
   public async success(message: string): Promise<void> {
     await this.logMessage(LogTypeMessageEnum.SUCCESS, LogTypeColorEnum.GREEN, message);
   }

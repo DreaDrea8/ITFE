@@ -13,7 +13,7 @@ export class PatchFile {
     this.repository = repository
   }
 
-  async execute (req: Request, res: Response ){
+  execute = async (req: Request, res: Response) =>{
     try {
       const dto: patchFileDtoInterface = {
         id: 1,
