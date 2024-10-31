@@ -1,7 +1,20 @@
 export default function Root() {
     return (
       <>
-        <h1>ITFA</h1>
+        <nav className="menu">
+          <div>
+            <h1>ITFE</h1>
+          </div>
+          <div>
+            <a href="/">Accueil</a>
+          </div>
+          <div>
+            <a href="/signup">inscription</a>
+          </div>
+          <div>
+            <a href="/signin">connexion</a>
+          </div>
+        </nav>
         <input type='file'/>
       </>
     );
