@@ -4,6 +4,7 @@ import { jsonContent } from "@src/types/jsonContent";
 import { Request, Response } from "express";
 import loggerService from "@src/services/logger/LoggerService";
 import { addUserDtoInterface } from "@src/repositories/UserRepository";
+import bcrypt from "bcrypt";
 
 export class AddUser {
   repository: Repository;
@@ -15,11 +16,13 @@ export class AddUser {
   execute = async (req: Request, res: Response) => {
     try {
       const { login, password } = req.body;
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
       const dto: addUserDtoInterface = {
         login: login,
-        password: password
-      }
-      const newUser = await this.repository.userRepository.addUser(dto)
+        password: hashedPassword,
+      };
+      const newUser = await this.repository.userRepository.addUser(dto);
       const result: jsonContent = {
         message: "Infos retrieved successfully",
         data: newUser,
@@ -34,5 +37,5 @@ export class AddUser {
       };
       res.status(500).json(result);
     }
-  }
+  };
 }
