@@ -4,7 +4,7 @@ import { jsonContent } from "@src/types/jsonContent";
 import { Request, Response } from "express";
 import loggerService from "@src/services/logger/LoggerService";
 import { addUserDtoInterface } from "@src/repositories/UserRepository";
-import bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 
 export class AddUser {
   repository: Repository;
