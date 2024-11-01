@@ -1,23 +1,62 @@
-openapi: '3.0.3'
+openapi: 3.0.3
 info:
-  title: API Title
-  version: '1.0'
+  title: ITFE API
+  description: API pour gérer les utilisateurs et les fichiers pour l'application ITFE.
+  version: 1.0.0
+  contact:
+    email: support@itfe.com
+  license:
+    name: MIT
+    url: "https://opensource.org/licenses/MIT"
 servers:
-  - url: https://localhost
+  - url: "https://localhost"
+    description: Serveur de développement local
+security:
+  - BearerAuth: []
+
 paths:
   /api/health:
     get:
-      summary: Check if backend work
-      description: Just check
+      summary: Check healthy
+      description: Endpoint pour vérifier si l'API est opérationnelle.
+      tags:
+        - Health
       responses:
-        '201':
-          description: Fichier ajouté avec succès.
-        '400':
-          description: Erreur de validation.
+        '200':
+          description: API opérationnelle.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Infos retrieved successfully"
+                  data:
+                    type: string
+                    example: "Healthy!!"
+                  error:
+                    example: null
+        '500':
+          description: Erreur serveur interne.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Internal Server Error"
+                  error:
+                    type: string
+                    example: "Unexpected error occurred"
 
   /api/user:
     post:
-      summary: Check if backend work
+      summary: Add a user
+      description: Ajoute un nouvel utilisateur avec son login et mot de passe.
+      tags:
+        - Utilisateurs
       requestBody:
         required: true
         content:
@@ -31,18 +70,34 @@ paths:
                 password:
                   type: string
                   example: "robert"
-      description: Just check
       responses:
         '201':
-          description: Fichier ajouté avec succès.
+          description: Utilisateur ajouté avec succès.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Utilisateur créé avec succès"
         '400':
-          description: Erreur de validation.
-
+          description: Erreur de validation des données.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid data provided"
 
   /api/file:
     post:
-      summary: Ajouter un fichier
-      description: Ajoute un nouveau fichier.
+      summary: Add a file
+      description: Ajoute un fichier avec son nom et contenu encodé en base64.
+      tags:
+        - Fichiers
       requestBody:
         required: true
         content:
@@ -59,15 +114,33 @@ paths:
       responses:
         '201':
           description: Fichier ajouté avec succès.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Fichier ajouté avec succès"
         '400':
-          description: Erreur de validation.
+          description: Erreur de validation du fichier.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Nom du fichier manquant ou contenu invalide"
 
     get:
-      summary: Obtenir tous les fichiers
+      summary: Retrieve all files
       description: Récupère la liste de tous les fichiers.
+      tags:
+        - Fichiers
       responses:
         '200':
-          description: Liste des fichiers.
+          description: Liste des fichiers récupérée avec succès.
           content:
             application/json:
               schema:
@@ -84,18 +157,20 @@ paths:
 
   /api/file/{id}:
     get:
-      summary: Obtenir un fichier
-      description: Récupère les détails d'un fichier par son identifiant.
+      summary: Retrieve a file
+      description: Récupère les détails d'un fichier spécifique par son identifiant.
+      tags:
+        - Fichiers
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: integer
-          description: ID du fichier
+          description: Identifiant unique du fichier
       responses:
         '200':
-          description: Détails du fichier.
+          description: Détails du fichier récupérés avec succès.
           content:
             application/json:
               schema:
@@ -109,43 +184,64 @@ paths:
                     example: "report.pdf"
         '404':
           description: Fichier non trouvé.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Fichier non trouvé"
 
     delete:
-      summary: Supprimer un fichier
+      summary: Delete a file
       description: Supprime un fichier par son identifiant.
+      tags:
+        - Fichiers
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: integer
-          description: ID du fichier
+          description: Identifiant unique du fichier
       responses:
         '204':
           description: Fichier supprimé avec succès.
         '404':
           description: Fichier non trouvé.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Fichier non trouvé"
 
-  /api/file/:
-    patch:
-      summary: Mettre à jour un fichier partiellement
-      description: Modifie partiellement un fichier existant.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: integer
-                  example: 1
-                name:
-                  type: string
-                  example: "updated_report.pdf"
-      responses:
-        '200':
-          description: Fichier mis à jour.
-        '400':
-          description: Erreur de validation.
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Une erreur est survenue"
+        code:
+          type: integer
+          example: 400
+
+tags:
+  - name: Health
+    description: Vérification de l'état de l'API.
+  - name: Utilisateurs
+    description: Gestion des utilisateurs.
+  - name: Fichiers
+    description: Gestion des fichiers.
 

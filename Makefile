@@ -7,7 +7,13 @@ SERVICE_NAME=itfe
 logs:
 	docker compose -f $(DOCKER_COMPOSE_FILE) logs -f
 
+
+startall+d: 
+	docker compose -f $(DOCKER_COMPOSE_FILE) down
+	docker compose -f $(DOCKER_COMPOSE_FILE) up --build
+
 startall: 
+	docker compose -f $(DOCKER_COMPOSE_FILE) down
 	docker compose -f $(DOCKER_COMPOSE_FILE) up --build -d
 
 start:

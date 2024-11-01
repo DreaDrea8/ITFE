@@ -13,6 +13,10 @@ Partage de fichier volumineux
 | backend | API                   | Node + TypeScript + Express | Non           | localhost/api      | [Backend](/backend) |
 | mariadb | Base de données       | MariaDB                     | Oui           | localhost:3306     | |
 | pma     | Admin base de données | phpMyAdmin                  | Non           | localhost/admin-db | |
+|         | Documentation         | NGINX                       | Oui           | localhost/doc (Your lost)     | |
+|         | _ Generalite          | Markdown + pandoc = HTML    | Oui           | localhost/doc      | |
+|         | __ Doc API            | OpenApi + YAML + Redoc      | Oui           | localhost/doc/api  | |
+|         | __ Nouveaute          | Markdown + pandoc = HTML    | Oui           | localhost/doc/new  | |
 
 ## Instalation
 

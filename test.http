@@ -2,18 +2,29 @@
 GET https://localhost
 
 
-
 ###
+# @name checkHealth
 GET https://localhost/api/health
-Content-Type: application/json;
+Content-Type: application/json
 
-
+### FILE 
 
 ###
-POST https://localhost/api/user
-Content-Type: application/json;
+# @name addFile
+POST https://localhost/api/file
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
-{
-  "login":"j-f",
-  "password": "test"
-}
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="title"
+
+mon titre
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+Ma description
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="/C:/Users/rapha/Desktop/Hetic/web3/NodeJs/ITFE/progit.pdf"
+Content-Type: application/pdf
+
+(data)
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

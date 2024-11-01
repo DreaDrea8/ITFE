@@ -40,6 +40,8 @@ services:
       dockerfile: ./backend/Dockerfile
       target: ${ENV}
     restart: always
+    ports:
+      - 9229:9229
     env_file:
       - .env
     volumes:
