@@ -1,11 +1,12 @@
 import { Router, Request, Response } from "express";
 
-import { AddFile } from "@src/controllers/file/addFile";
+import upload, { AddFile } from "@src/controllers/file/addFile";
 import { GetFile } from "@src/controllers/file/GetFile";
 import { Repository } from "@src/repositories/Repository";
 import { GetFiles } from "@src/controllers/file/GetFilles";
 import { PatchFile } from "@src/controllers/file/PatchFile";
 import { RemoveFile } from "@src/controllers/file/RemoveFile";
+import { addFileSchema } from "@src/schema/addFileShema";
 
 
 export class FileRoute {
@@ -23,6 +24,7 @@ export class FileRoute {
     this.patchFile = new PatchFile(repository)
     this.removeFile = new RemoveFile(repository)
 
+    this.router.post("/", upload.single("file"), this.addFile.execute);
     this.router.post("/", this.addFile.execute);
     this.router.get("/", this.getFiles.execute);
     this.router.get("/:id(\\d+)", this.getFile.execute);

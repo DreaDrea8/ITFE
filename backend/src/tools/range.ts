@@ -14,3 +14,4 @@ export function* range(start = 0, end = 1000000000, step = 1): Generator<number,
 };
 
 export const LogId = range();
+export const FileId = range();

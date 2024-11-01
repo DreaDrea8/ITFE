@@ -1,22 +1,25 @@
 import cors from "cors"
 import mysql from "mysql2"
 import { Server } from "http"
+
+
 import { Connection } from "mysql2"
 import express, { Application, NextFunction, Request, Response } from "express"
-
 
 import ERRORS from "./commons/Error"
 import { Routes } from "./routes/Routes"
 import { Repository } from "./repositories/Repository"
 import loggerService from "./services/logger/LoggerService"
 import { jsonContent } from "./types/jsonContent"
+import bodyParser from "body-parser"
+
 
 
 export default class App {
 	private readonly port: number|string = process.env.PORT ?? 3000;
 	private readonly host: string = process.env.HOST ?? 'localhost';
 	private readonly corsOptions = {
-		origin: 'localhost',
+		origin: '*',
 	}
 	private server: Server
 	public app: Application
@@ -41,14 +44,15 @@ export default class App {
 
   private async setup() {
     this.app.use(cors(this.corsOptions));
-    this.app.use(express.json());
+		this.app.use(bodyParser.urlencoded());
+    this.app.use(bodyParser.json());
   }
 
 	private mountHealthCheck() {
 		this.app.get("/api/health", (req: Request, res: Response) => {
 			const result:jsonContent = {
         message: 'Infos retrieved successfully',
-        data: 'Healthy!!', 
+        data: 'Healthy !!', 
         error: null
       }
 			loggerService.success('Api health')

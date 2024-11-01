@@ -13,7 +13,7 @@ export interface FileDtoInterface {
 export class File {
   id: number
   title: string
-  description: string 
+  description: string
   userId: string
   reference: string
   signature: string

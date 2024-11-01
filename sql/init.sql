@@ -16,9 +16,9 @@ create table if not exists `file` (
     title varchar(255) not null,
     description text,
     user_id int not null,
-    reference varchar(255) not null,
-    signature varchar(255) not null,
-    size int not null,
+    reference varchar(255),
+    signature varchar(255),
+    size int,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp on update current_timestamp,
     foreign key (user_id) references `user`(id)
