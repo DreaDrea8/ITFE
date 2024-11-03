@@ -1,10 +1,11 @@
 import path from 'path';
 import { appendFile, copyFile, mkdir, readdir, rename, rm, stat, unlink} from 'fs/promises';
-import { BigIntStats, MakeDirectoryOptions, PathLike, RmDirOptions, StatOptions, Stats } from 'fs';
+import { BigIntStats, createReadStream, MakeDirectoryOptions, PathLike, RmDirOptions, StatOptions, Stats } from 'fs';
 
 import LsDirOptions from './dto/LsdirOptions';
 import loggerService from '../logger/LoggerService';
 import { instanceOfErrnoException } from '@tools/instanceOfNodeError';
+import { createHash } from 'crypto';
 
 
 export class FileSystemService {
@@ -13,19 +14,45 @@ export class FileSystemService {
   constructor() {
   }
 
-  public addFile = async () => {
-
+  public uploadFile = async (directoryRoot:string, fileLocation:string, id: string):Promise<string> => {
+    const filePath: PathLike = path.join(directoryRoot, fileLocation , id);
+    try {
+      await this.getFileInfo(directoryRoot, fileLocation, id)
+      return filePath
+    } catch (error){
+      return ''
+    }
   }
 
-  public getFileRef = async () => {
-
+  /**
+   * Generates a SHA-256 hash for a specified file.
+   * @async
+   * @param {string} [directoryRoot] - The root directory path.
+   * @param {string} fileLocation - The location of the file relative to the root directory.
+   * @param {string} fileName - The name of the file to get information about.
+   * @returns {Promise<string>} - The hash of the file in hexadecimal format.
+   * @throws {Error} - Throws an error if the file cannot be read.
+   */
+  public hashFile = async (directoryRoot:string, fileLocation:string, fileName: string): Promise<string>  => {
+    const filePath: PathLike = path.join(directoryRoot, fileLocation , fileName);
+    return new Promise((resolve, reject) => {
+      const hash = createHash('sha256');
+      const stream = createReadStream(filePath);
+  
+      stream.on('data', (chunk) => {
+        hash.update(chunk); 
+      });
+  
+      stream.on('end', () => {
+        const fileHash = hash.digest('hex');
+        resolve(fileHash);
+      });
+  
+      stream.on('error', (err) => {
+        reject(err);
+      });
+    });
   }
-
-  public getFileSignature = async () => {
-
-  }
-
-
 
   /**
    * Creates a directory at the specified location.

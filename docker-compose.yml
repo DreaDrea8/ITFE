@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: ./frontend/Dockerfile
-      target: ${ENV}
+      target: ${NODE_ENV}
     restart: always
     environment:
       NODE_ENV: ${NODE_ENV}
@@ -38,12 +38,12 @@ services:
     build:
       context: .
       dockerfile: ./backend/Dockerfile
-      target: ${ENV}
-    ports:
-      - 3000:3000
+      target: ${NODE_ENV}
     restart: always
     ports:
       - 9229:9229
+    environment:
+      NODE_ENV: ${NODE_ENV}
     env_file:
       - .env
     volumes:
@@ -56,16 +56,14 @@ services:
         condition: service_healthy
 
   mariadb:
-    container_name: mariadb
+    container_name: ${DB_HOST}
     image: mariadb:11.5.2
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: app
+      MYSQL_ROOT_PASSWORD: ${DB_PASSORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d
-    ports:
-      - 3306:3306
     healthcheck:
       test:
         [
@@ -87,9 +85,9 @@ services:
     image: phpmyadmin
     restart: always
     environment:
-      PMA_HOST: mariadb
-      PMA_USER: root
-      PMA_PASSWORD: password
+      PMA_HOST: ${DB_HOST}
+      PMA_USER: ${DB_USER}
+      PMA_PASSWORD: ${DB_PASSORD}
     depends_on:
       mariadb:
         condition: service_healthy

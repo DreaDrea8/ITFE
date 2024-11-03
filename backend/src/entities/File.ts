@@ -1,35 +1,44 @@
 export interface FileDtoInterface {
-  id: number
-  title: string
-  description: string 
-  userId: string
-  reference: string
-  signature: string
-  size: string
-  createAt: Date
-  updateAt: Date
+  id: number;
+  libelle: string;
+  description: string;
+  fileName: string;
+  originalFileName: string;
+  mimetype: string;
+  userId: number;
+  referenceId: number;
+  size: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
 }
 
 export class File {
-  id: number
-  title: string
-  description: string
-  userId: string
-  reference: string
-  signature: string
-  size: string
-  createAt: Date
-  updateAt: Date
+  id: number;
+  libelle: string;
+  description: string;
+  fileName: string;
+  originalFileName: string;
+  mimetype: string;
+  userId: number;
+  referenceId: number;
+  size: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
 
-  constructor(dto:FileDtoInterface){
-    this.id = dto.id
-    this.title = dto.title
-    this.description = dto.description 
-    this.userId = dto.userId
-    this.reference = dto.reference
-    this.signature = dto.signature
-    this.size = dto.size
-    this.createAt = dto.createAt
-    this.updateAt = dto.updateAt
+  constructor(dto: FileDtoInterface) {
+    this.id = dto.id;
+    this.libelle = dto.libelle;
+    this.description = dto.description;
+    this.fileName = dto.fileName;
+    this.originalFileName = dto.originalFileName;
+    this.mimetype = dto.mimetype;
+    this.userId = dto.userId;
+    this.referenceId = dto.referenceId;
+    this.size = dto.size;
+    this.createdAt = dto.createdAt;
+    this.updatedAt = dto.updatedAt;
+    this.deletedAt = dto.deletedAt;
   }
 }

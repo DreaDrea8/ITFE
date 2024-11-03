@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach to Docker",
+      "port": 9229,
+      "address": "localhost",
+      "localRoot": "${workspaceFolder}/backend/src", // Mettez à jour avec votre chemin source
+      "remoteRoot": "/var/www/src" // Chemin à l'intérieur du conteneur
+    }
+  ]
+}

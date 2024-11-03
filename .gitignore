@@ -1,3 +1,6 @@
+/backend/files/*
+/backend/tmp/*
+
 # Logs
 logs
 *.log
@@ -139,7 +142,6 @@ dist/log*
 
 # IDE 
 .idea
-.vscode
 
 .deps_check
 .DS_Store
