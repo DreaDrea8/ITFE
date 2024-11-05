@@ -9,6 +9,7 @@ import Root from "./routes/root";
 import ErrorPage from "./error-page";
 import SignUp from "./routes/signup";
 import SignIn from "./routes/signin";
+import App from './App';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <App />
   </StrictMode>,
 )
