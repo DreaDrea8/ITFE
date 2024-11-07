@@ -1,5 +1,5 @@
-import {LogId} from '@tools/range';
-import DateFormatter from '@tools/DateFormatter';
+import { LogId } from '@src/commons/range'
+import DateFormatter from '@src/commons/DateFormatter'
 
 enum LogTypeMessageEnum {
   DEFAULT = '',
@@ -19,58 +19,55 @@ enum LogTypeColorEnum {
 
 export class LoggerService {
 
-  private inConsole: boolean;
+  private inConsole: boolean
 
   constructor  (inConsole?: boolean) {
-    this.inConsole = inConsole ?? true;
+    this.inConsole = inConsole ?? true
   }
 
   public async default(message: string): Promise<void> {
-    await this.logMessage(LogTypeMessageEnum.DEFAULT, LogTypeColorEnum.DEFAULT, message);
+    await this.logMessage(LogTypeMessageEnum.DEFAULT, LogTypeColorEnum.DEFAULT, message)
   }
 
   public async info(message: string): Promise<void> {
-    await this.logMessage(LogTypeMessageEnum.INFO, LogTypeColorEnum.BLUE, message);
+    await this.logMessage(LogTypeMessageEnum.INFO, LogTypeColorEnum.BLUE, message)
   }
 
   public async obj(obj:any): Promise<void> {
-    const id: number | void = LogId.next().value;
-    const time: string = DateFormatter.toFrenchFormat(new Date()); 
-    const content: string = this.contentFormatter(id ?? '', time, LogTypeMessageEnum.INFO, 'Object');
+    const id: number | void = LogId.next().value
+    const time: string = DateFormatter.toFrenchFormat(new Date()) 
+    const content: string = this.contentFormatter(id ?? '', time, LogTypeMessageEnum.INFO, 'Object')
 
     // Log
     if (this.inConsole) {
-      console.log(LogTypeColorEnum.BLUE, content, ...(Array.isArray(obj) ? obj : [obj]));
+      console.log(LogTypeColorEnum.BLUE, content, ...(Array.isArray(obj) ? obj : [obj]))
    }
   }
 
   public async success(message: string): Promise<void> {
-    await this.logMessage(LogTypeMessageEnum.SUCCESS, LogTypeColorEnum.GREEN, message);
+    await this.logMessage(LogTypeMessageEnum.SUCCESS, LogTypeColorEnum.GREEN, message)
   }
 
   public async warn(message: string): Promise<void> {
-    await this.logMessage(LogTypeMessageEnum.WARN, LogTypeColorEnum.YELLOW, message);
+    await this.logMessage(LogTypeMessageEnum.WARN, LogTypeColorEnum.YELLOW, message)
   }
 
   public async error(message: string, error?: Error): Promise<void> {
-    await this.logMessage(LogTypeMessageEnum.ERROR, LogTypeColorEnum.RED, message, JSON.stringify(error));
+    await this.logMessage(LogTypeMessageEnum.ERROR, LogTypeColorEnum.RED, message, JSON.stringify(error))
   }
 
   private async logMessage(typeMessage: string, colorMessage: string, message: string, detail?: string): Promise<void> {
-    const id: number | void = LogId.next().value;
-    const time: string = DateFormatter.toFrenchFormat(new Date()); 
-    const content: string = this.contentFormatter(id ?? '', time, typeMessage, message, detail);
+    const id: number | void = LogId.next().value
+    const time: string = DateFormatter.toFrenchFormat(new Date()) 
+    const content: string = this.contentFormatter(id ?? '', time, typeMessage, message, detail)
 
     // Log
     if (this.inConsole) {
-      console.log(colorMessage, content);
+      console.log(colorMessage, content)
     }
   }
 
   private contentFormatter = (id: number|string, time:string, typeMessage:string, message:string, detail?:string): string => {
-    return `${id} - ${time} : [${typeMessage}] ${message} ${detail? '\n\t MORE DETAILS:'+ detail: ''}`;
-  };
+    return `${id} - ${time} : [${typeMessage}] ${message} ${detail? '\n\t MORE DETAILS:'+ detail: ''}`
+  }
 }
-
-const loggerService = new LoggerService()
-export default loggerService

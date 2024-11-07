@@ -1,0 +1,1716 @@
+openapi: 3.0.3
+info:
+  title: " 🚀 API de Partage de Fichiers"
+  description: 
+    Cette API permet la gestion des fichiers et de partager des fichiers volumineux. 
+  version: "1.0.0"
+  contact:
+    name: "Support API"
+    email: "support@example.com"
+  license:
+    name: "MIT"
+    url: "https://opensource.org/licenses/MIT"
+
+servers:
+  - url: "{protocol}://{host}"
+    description: "Serveur configurable"
+    variables:
+      protocol:
+        default: "http"
+        enum:
+          - "http"
+          - "https"
+      host:
+        default: "localhost"
+        description: "Nom d'hôte du serveur"
+security:
+  - BearerAuth: []
+
+
+paths:
+  / :
+    get:
+      tags:
+      - Interface web
+      summary: Home
+      description: Home
+      operationId: home
+      responses:
+        '200':
+          description: ''
+      security:
+      - {}
+
+  /doc:
+    get:
+      tags:
+      - Doc
+      summary: Documentation
+      description: Documentation
+      operationId: documentation
+      responses:
+        '200':
+          description: ''
+      security:
+      - {}
+  /doc/api:
+    get:
+      tags:
+      - Doc
+      summary: Documentation API
+      description: Documentation API
+      operationId: documentationApi
+      responses:
+        '200':
+          description: ''
+      security:
+      - {}
+  /doc/news:
+    get:
+      tags:
+      - Doc
+      summary: Changelog
+      description: Changelog
+      operationId: changeLog
+      responses:
+        '200':
+          description: ''
+      security:
+      - {}
+
+  /api/health:
+    get:
+      tags:
+      - Audit
+      summary: Health
+      description: Health
+      operationId: health
+      responses:
+        '200':
+          description: SUCCES
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: Content-Type, Authorization
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET, POST, PUT, DELETE, OPTIONS, PATCH
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Infos retrieved successfully
+                  data:
+                    type: string
+                    example: Healthy !!
+                  error:
+                    nullable: true
+                    example: null
+              examples:
+                SUCCES:
+                  value:
+                    data: Healthy !!
+                    error: null
+                    message: Infos retrieved successfully
+      security:
+      - {}
+  /api/any:
+    get:
+      tags:
+      - Audit
+      summary: Any
+      description: Any
+      operationId: any
+      responses:
+        '404':
+          description: ERROR  - ROUTE_NOT_FOUND
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Resource not found
+                  data:
+                    nullable: true
+                    example: null
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: ROUTE_NOT_FOUND
+                      cause:
+                        nullable: true
+                        example: null
+              examples:
+                ERROR  - ROUTE_NOT_FOUND:
+                  value:
+                    message: Resource not found
+                    data: null
+                    error:
+                      message: ROUTE_NOT_FOUND
+                      cause: null
+      security:
+      - {}
+
+  /api/auth:
+    post:
+      tags:
+      - Authentification
+      summary: Login
+      description: Login
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                  example: Roger
+                password:
+                  type: string
+                  example: "123"
+            examples:
+              Admin:
+                value:
+                  login: Roger
+                  password: "123"
+              User:
+                value:
+                  login: Jean
+                  password: "123"
+      responses:
+        '200':
+          description: SUCCESS
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: Content-Type, Authorization
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET, POST, PUT, DELETE, OPTIONS, PATCH
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Request was successful
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMDkxNjA3NiwiZXhwIjoxNzMwOTMwNDc2fQ.TLXkwqeW8EDvilvp-YgKULZ46fvYjj-CpZQBupAHTVc
+                  error:
+                    nullable: true
+                    example: null
+              examples:
+                SUCCESS:
+                  value:
+                    message: Request was successful
+                    data:
+                      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMDkxNjA3NiwiZXhwIjoxNzMwOTMwNDc2fQ.TLXkwqeW8EDvilvp-YgKULZ46fvYjj-CpZQBupAHTVc
+                    error: null
+        '400':
+          description: |
+            ERROR - Wrong login & Password  
+            ERROR - AUTH_CONTROLLER_FAIL - Login not valid  
+            ERROR - AUTH_CONTROLLER_FAIL - Password not valid
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid request
+                  data:
+                    nullable: true
+                    example: null
+                  error:
+                    anyOf:
+                    - type: object
+                      properties:
+                        errors:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              location:
+                                type: string
+                                example: body
+                              msg:
+                                type: string
+                                example: Login is required
+                              path:
+                                type: string
+                                example: login
+                              type:
+                                type: string
+                                example: field
+                          example:
+                          - location: body
+                            msg: Login is required
+                            path: login
+                            type: field
+                          - location: body
+                            msg: Login required 3 caracteres
+                            path: login
+                            type: field
+                          - location: body
+                            msg: Login must be a string
+                            path: login
+                            type: field
+                          - location: body
+                            msg: Password is required
+                            path: password
+                            type: field
+                          - location: body
+                            msg: Password must be a string
+                            path: password
+                            type: field
+                    - type: string
+                      example: AUTH_CONTROLLER_FAIL
+                    - type: string
+                      example: AUTH_CONTROLLER_FAIL
+
+              examples:
+                ERROR - Wrong login & Password:
+                  value:
+                    message: Invalid request
+                    data: null
+                    error:
+                      errors:
+                      - location: body
+                        msg: Login is required
+                        path: login
+                        type: field
+                      - location: body
+                        msg: Login required 3 caracteres
+                        path: login
+                        type: field
+                      - location: body
+                        msg: Login must be a string
+                        path: login
+                        type: field
+                      - location: body
+                        msg: Password is required
+                        path: password
+                        type: field
+                      - location: body
+                        msg: Password must be a string
+                        path: password
+                        type: field
+                ERROR - AUTH_CONTROLLER_FAIL - Login not valid:
+                  value:
+                    message: Invalid request
+                    data: null
+                    error: AUTH_CONTROLLER_FAIL
+                ERROR - AUTH_CONTROLLER_FAIL - Password not valid:
+                  value:
+                    message: Invalid request
+                    data: null
+                    error: AUTH_CONTROLLER_FAIL
+      security:
+      - {}
+  
+  /api/user:
+    post:
+      tags:
+      - Utilisateurs
+      summary: Create
+      description: Create
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                  example: 'Janne'
+                password:
+                  type: string
+                  example: 'dark'
+            examples:
+              Create:
+                value:
+                  login: 'Janne'
+                  password: 'dark'
+      responses:
+        '201':
+          description: SUCCESS
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: Content-Type, Authorization
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET, POST, PUT, DELETE, OPTIONS, PATCH
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Resource successfully created
+                  data:
+                    type: object
+                    properties:
+                      user:
+                        type: object
+                        properties:
+                          id:
+                            type: number
+                            example: 21
+                          login:
+                            type: string
+                            example: Alexanne
+                          password:
+                            type: string
+                            description: Niveau securité c'est pas ouf
+                            example: $2a$10$7gX6se2yQDItIGaPBDV78OyHx6X3FD8m9fyPOC2ZPbKrQOV4hKgri
+                          role:
+                            type: string
+                            example: USER
+                          createdAt:
+                            type: string
+                            example: 2024-11-06T19:45:18.000Z
+                          updatedAt:
+                            type: string
+                            example: 2024-11-06T19:45:18.000Z
+                          revokedAt:
+                            nullable: true
+                            example: null
+                      token:
+                        type: string
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIxLCJpYXQiOjE3MzA5MjIzMTgsImV4cCI6MTczMDkzNjcxOH0.HyG5OPnmZSV8MDopMNH8Wc5ZVpnyu8GkdulBnTKGYHo
+                  error:
+                    nullable: true
+                    example: null
+
+              examples:
+                SUCCESS:
+                  value:
+                    message: Resource successfully created
+                    data:
+                      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIxLCJpYXQiOjE3MzA5MjIzMTgsImV4cCI6MTczMDkzNjcxOH0.HyG5OPnmZSV8MDopMNH8Wc5ZVpnyu8GkdulBnTKGYHo
+                      user:
+                        createdAt: 2024-11-06T19:45:18.000Z
+                        id: 21
+                        login: Alexanne
+                        password: $2a$10$7gX6se2yQDItIGaPBDV78OyHx6X3FD8m9fyPOC2ZPbKrQOV4hKgri
+                        revokedAt: null
+                        role: USER
+                        updatedAt: 2024-11-06T19:45:18.000Z
+                    error: null
+        '400':
+          description: ERROR - Wrong login & password
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid request
+                  data:
+                    nullable: true
+                    example: null
+                  error:
+                    type: object
+                    properties:
+                      errors:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            location:
+                              type: string
+                              example: body
+                            msg:
+                              type: string
+                              example: Login is required
+                            path:
+                              type: string
+                              example: login
+                            type:
+                              type: string
+                              example: field
+                        example:
+                        - location: body
+                          msg: Login is required
+                          path: login
+                          type: field
+                        - location: body
+                          msg: Login required 3 caracteres
+                          path: login
+                          type: field
+                        - location: body
+                          msg: Login must be a string
+                          path: login
+                          type: field
+                        - location: body
+                          msg: Password is required
+                          path: password
+                          type: field
+                        - location: body
+                          msg: Password required 3 caracteres
+                          path: password
+                          type: field
+                        - location: body
+                          msg: Password must be a string
+                          path: password
+                          type: field
+              examples:
+                ERROR - Wrong login & password:
+                  value:
+                    message: Invalid request
+                    data: null
+                    error:
+                      errors:
+                      - location: body
+                        msg: Login is required
+                        path: login
+                        type: field
+                      - location: body
+                        msg: Login required 3 caracteres
+                        path: login
+                        type: field
+                      - location: body
+                        msg: Login must be a string
+                        path: login
+                        type: field
+                      - location: body
+                        msg: Password is required
+                        path: password
+                        type: field
+                      - location: body
+                        msg: Password required 3 caracteres
+                        path: password
+                        type: field
+                      - location: body
+                        msg: Password must be a string
+                        path: password
+                        type: field
+      security:
+      - {}
+
+  /api/file:
+    get:
+      tags:
+      - Fichier
+      summary: Read list
+      description: Read list
+      operationId: readList
+      responses:
+        '200':
+          description: SUCCESS
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: Content-Type, Authorization
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET, POST, PUT, DELETE, OPTIONS, PATCH
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Request was successful
+                  data:
+                    type: object
+                    properties:
+                      other:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                              example: 3
+                            libelle:
+                              type: string
+                              example: Mon titre
+                            description:
+                              type: string
+                              example: Ma description
+                            fileName:
+                              type: string
+                              example: file
+                            originalFileName:
+                              type: string
+                              example: progit.pdf
+                            mimetype:
+                              type: string
+                              example: application/pdf
+                            referenceId:
+                              type: number
+                              example: 1
+                            userId:
+                              type: number
+                              example: 1
+                            size:
+                              type: number
+                              example: 13171736
+                            createdAt:
+                              type: string
+                              example: 2024-11-06T19:58:09.000Z
+                            updatedAt:
+                              type: string
+                              example: 2024-11-06T19:58:09.000Z
+                            revokedAt:
+                              nullable: true
+                              example: null
+                        example:
+                        - id: 3
+                          libelle: Mon titre
+                          description: Ma description
+                          fileName: file
+                          originalFileName: progit.pdf
+                          mimetype: application/pdf
+                          referenceId: 1
+                          userId: 1
+                          size: 13171736
+                          createdAt: 2024-11-06T19:58:09.000Z
+                          updatedAt: 2024-11-06T19:58:09.000Z
+                          revokedAt: null
+                      user:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                              example: 3
+                            libelle:
+                              type: string
+                              example: Mon titre
+                            description:
+                              type: string
+                              example: Ma description
+                            fileName:
+                              type: string
+                              example: file
+                            originalFileName:
+                              type: string
+                              example: progit.pdf
+                            mimetype:
+                              type: string
+                              example: application/pdf
+                            referenceId:
+                              type: number
+                              example: 1
+                            userId:
+                              type: number
+                              example: 1
+                            size:
+                              type: number
+                              example: 13171736
+                            createdAt:
+                              type: string
+                              example: 2024-11-06T19:58:09.000Z
+                            updatedAt:
+                              type: string
+                              example: 2024-11-06T19:58:09.000Z
+                            revokedAt:
+                              nullable: true
+                              example: null
+                        example:
+                        - id: 3
+                          libelle: Mon titre
+                          description: Ma description
+                          fileName: file
+                          originalFileName: progit.pdf
+                          mimetype: application/pdf
+                          referenceId: 1
+                          userId: 1
+                          size: 13171736
+                          createdAt: 2024-11-06T19:58:09.000Z
+                          updatedAt: 2024-11-06T19:58:09.000Z
+                          revokedAt: null
+                  error:
+                    nullable: true
+                    example: null
+
+              examples:
+                SUCCESS:
+                  value:
+                    message: Request was successful
+                    data:
+                      user:
+                      - id: 3
+                        libelle: Mon titre
+                        description: Ma description
+                        fileName: file
+                        originalFileName: progit.pdf
+                        mimetype: application/pdf
+                        referenceId: 1
+                        userId: 1
+                        size: 13171736
+                        createdAt: 2024-11-06T19:58:09.000Z
+                        updatedAt: 2024-11-06T19:58:09.000Z
+                        revokedAt: null
+                      other:
+                      - id: 1
+                        libelle: Mon titre
+                        description: Ma description
+                        fileName: file
+                        originalFileName: progit.pdf
+                        mimetype: application/pdf
+                        referenceId: 1
+                        userId: 1
+                        size: 13171736
+                        createdAt: 2024-11-06T19:58:09.000Z
+                        updatedAt: 2024-11-06T19:58:09.000Z
+                        revokedAt: null
+                    error: null
+      security:
+      - bearerAuth: []
+
+    post:
+      tags:
+      - Fichier
+      summary: Create
+      description: Create
+      operationId: create1
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                wrong-description:
+                  type: string
+                  example: Ma description
+                wrong-libelle:
+                  type: string
+                  example: Mon titre
+      responses:
+        '201':
+          description: SUCCESS
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: Content-Type, Authorization
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET, POST, PUT, DELETE, OPTIONS, PATCH
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      createdAt:
+                        type: string
+                        example: 2024-11-06T20:03:29.000Z
+                      description:
+                        type: string
+                        example: Ma description
+                      fileName:
+                        type: string
+                        example: file
+                      id:
+                        type: number
+                        example: 16
+                      libelle:
+                        type: string
+                        example: Mon titre
+                      mimetype:
+                        type: string
+                        example: application/pdf
+                      originalFileName:
+                        type: string
+                        example: progit.pdf
+                      referenceId:
+                        type: number
+                        example: 1
+                      revokedAt:
+                        nullable: true
+                        example: null
+                      size:
+                        type: number
+                        example: 13171736
+                      updatedAt:
+                        type: string
+                        example: 2024-11-06T20:03:29.000Z
+                      userId:
+                        type: number
+                        example: 1
+                  error:
+                    nullable: true
+                    example: null
+                  message:
+                    type: string
+                    example: Resource successfully created
+              examples:
+                SUCCESS:
+                  value:
+                    data:
+                      createdAt: 2024-11-06T20:03:29.000Z
+                      description: Ma description
+                      fileName: file
+                      id: 16
+                      libelle: Mon titre
+                      mimetype: application/pdf
+                      originalFileName: progit.pdf
+                      referenceId: 1
+                      revokedAt: null
+                      size: 13171736
+                      updatedAt: 2024-11-06T20:03:29.000Z
+                      userId: 1
+                    error: null
+                    message: Resource successfully created
+        '400':
+          description: ERROR - Wrong libelle
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '320'
+            Date:
+              schema:
+                type: string
+                example: Wed, 06 Nov 2024 20:05:11 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"140-5WlJzLKPxbYrDixj7CGNonPzxAw"
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    nullable: true
+                    example: null
+                  error:
+                    type: object
+                    properties:
+                      errors:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            location:
+                              type: string
+                              example: body
+                            msg:
+                              type: string
+                              example: Libellé is required
+                            path:
+                              type: string
+                              example: libelle
+                            type:
+                              type: string
+                              example: field
+                        example:
+                        - location: body
+                          msg: Libellé is required
+                          path: libelle
+                          type: field
+                        - location: body
+                          msg: Libellé required 2 caracteres
+                          path: libelle
+                          type: field
+                        - location: body
+                          msg: Libellé must be a string
+                          path: libelle
+                          type: field
+                  message:
+                    type: string
+                    example: Invalid request
+              examples:
+                ERROR - Wrong libelle:
+                  value:
+                    data: null
+                    error:
+                      errors:
+                      - location: body
+                        msg: Libellé is required
+                        path: libelle
+                        type: field
+                      - location: body
+                        msg: Libellé required 2 caracteres
+                        path: libelle
+                        type: field
+                      - location: body
+                        msg: Libellé must be a string
+                        path: libelle
+                        type: field
+                    message: Invalid request
+      security:
+      - bearerAuth: []
+  
+  /api/file/size:
+    get:
+      tags:
+      - Fichier
+      summary: Read total size file
+      description: Read total size file
+      operationId: readTotalSizeFile
+      responses:
+        '200':
+          description: SUCCESS
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: Content-Type, Authorization
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET, POST, PUT, DELETE, OPTIONS, PATCH
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Request was successful
+                  data:
+                    type: object
+                    properties:
+                      max-size:
+                        type: number
+                        example: 2147483648
+                      total-size:
+                        type: number
+                        example: 223919512
+                  error:
+                    nullable: true
+                    example: null
+
+              examples:
+                SUCCESS:
+                  value:
+                    message: Request was successful
+                    data:
+                      max-size: 2147483648
+                      total-size: 223919512
+                    error: null
+      security:
+      - bearerAuth: []
+  
+  /api/file/{{file_id}}:
+    get:
+      tags:
+      - Fichier
+      summary: Read
+      description: Read
+      operationId: read
+      parameters:
+        - name: file_id
+          in: path
+          schema:
+            type : integer
+            example: 1 
+          required: true
+      responses:
+        '200':
+          description: SUCCESS
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: Content-Type, Authorization
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET, POST, PUT, DELETE, OPTIONS, PATCH
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Request was successful
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 3
+                      libelle:
+                        type: string
+                        example: Mon titre
+                      description:
+                        type: string
+                        example: Ma description
+                      fileName:
+                        type: string
+                        example: file
+                      originalFileName:
+                        type: string
+                        example: progit.pdf
+                      mimetype:
+                        type: string
+                        example: application/pdf
+                      referenceId:
+                        type: number
+                        example: 1
+                      userId:
+                        type: number
+                        example: 1
+                      size:
+                        type: number
+                        example: 13171736
+                      createdAt:
+                        type: string
+                        example: 2024-11-06T19:58:09.000Z
+                      updatedAt:
+                        type: string
+                        example: 2024-11-06T19:58:09.000Z
+                      revokedAt:
+                        nullable: true
+                        example: null
+                    example:
+                      - id: 3
+                        libelle: Mon titre
+                        description: Ma description
+                        fileName: file
+                        originalFileName: progit.pdf
+                        mimetype: application/pdf
+                        referenceId: 1
+                        userId: 1
+                        size: 13171736
+                        createdAt: 2024-11-06T19:58:09.000Z
+                        updatedAt: 2024-11-06T19:58:09.000Z
+                        revokedAt: null
+
+                  error:
+                    nullable: true
+                    example: null
+
+              examples:
+                SUCCESS:
+                  value:
+                    message: Request was successful
+                    data:
+                      id: 3
+                      libelle: Mon titre
+                      description: Ma description
+                      fileName: file
+                      originalFileName: progit.pdf
+                      mimetype: application/pdf
+                      referenceId: 1
+                      userId: 1
+                      size: 13171736
+                      createdAt: 2024-11-06T19:58:09.000Z
+                      updatedAt: 2024-11-06T19:58:09.000Z
+                      revokedAt: null
+                    error: null
+        '404':
+          description: ERROR - READ_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid request
+                  data:
+                    nullable: true
+                    example: null
+                  error:
+                    type: object
+                    properties:
+                      cause:
+                        nullable: true
+                        example: null
+                      message:
+                        type: string
+                        example: READ_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND
+              examples:
+                ERROR - READ_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND:
+                  value:
+                    message: Invalid request
+                    data: null
+                    error:
+                      cause: null
+                      message: READ_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND
+      security:
+      - bearerAuth: []
+
+    patch:
+      tags:
+      - Fichier
+      summary: Update
+      description: Update
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  libellle:
+                    type: string
+                    example: Mon titre
+                  description:
+                    type: string
+                    example: Ma description
+                  fileName:
+                    type: string
+                    example: Titre du fichier
+            examples:
+              Update:
+                value:
+                  libellle: Mon titre
+                  description: Ma description
+                  fileName: Titre du fichier
+
+      responses:
+        '200':
+          description: SUCCESS
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: Content-Type, Authorization
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET, POST, PUT, DELETE, OPTIONS, PATCH
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Request was successful
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 3
+                      libelle:
+                        type: string
+                        example: Mon titre
+                      description:
+                        type: string
+                        example: Ma description
+                      fileName:
+                        type: string
+                        example: file
+                      originalFileName:
+                        type: string
+                        example: progit.pdf
+                      mimetype:
+                        type: string
+                        example: application/pdf
+                      referenceId:
+                        type: number
+                        example: 1
+                      userId:
+                        type: number
+                        example: 1
+                      size:
+                        type: number
+                        example: 13171736
+                      createdAt:
+                        type: string
+                        example: 2024-11-06T19:58:09.000Z
+                      updatedAt:
+                        type: string
+                        example: 2024-11-06T19:58:09.000Z
+                      revokedAt:
+                        nullable: true
+                        example: null
+                  error:
+                    nullable: true
+                    example: null
+              examples:
+                SUCCESS:
+                  value:
+                    message: Request was successful
+                    data:
+                      id: 3
+                      libelle: Mon titre
+                      description: Ma description
+                      fileName: file
+                      originalFileName: progit.pdf
+                      mimetype: application/pdf
+                      referenceId: 1
+                      userId: 1
+                      size: 13171736
+                      createdAt: 2024-11-06T19:58:09.000Z
+                      updatedAt: 2024-11-06T19:58:09.000Z
+                      revokedAt: null
+                    error: null
+        '400':
+          description: ERROR - Wrong libelle & filename
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid request
+                  data:
+                    nullable: true
+                    example: null
+                  error:
+                    type: object
+                    properties:
+                      errors:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            location:
+                              type: string
+                              example: body
+                            msg:
+                              type: string
+                              example: Libellé required 2 caracteres
+                            path:
+                              type: string
+                              example: libelle
+                            type:
+                              type: string
+                              example: field
+                            value:
+                              type: string
+                              example: M
+                        example:
+                        - location: body
+                          msg: Libellé required 2 caracteres
+                          path: libelle
+                          type: field
+                          value: M
+                        - location: body
+                          msg: FileName required 2 caracteres
+                          path: fileName
+                          type: field
+                          value: e
+              examples:
+                ERROR - Wrong libelle & filename:
+                  value:
+                    message: Invalid request
+                    data: null
+                    error:
+                      errors:
+                      - location: body
+                        msg: Libellé required 2 caracteres
+                        path: libelle
+                        type: field
+                        value: M
+                      - location: body
+                        msg: FileName required 2 caracteres
+                        path: fileName
+                        type: field
+                        value: e
+        '500':
+          description: ERROR - NO_FIELDS_TO_UPDATE
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: General server error
+                  data:
+                    nullable: true
+                    example: null
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: UPDATE_FILE_REPOSITORY_FAIL
+                      cause:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: NO_FIELDS_TO_UPDATE
+                          innerCause:
+                            nullable: true
+                            example: null
+                          stack:
+                            type: string
+                            example: |-
+                              Error: NO_FIELDS_TO_UPDATE
+              examples:
+                ERROR - NO_FIELDS_TO_UPDATE:
+                  value:
+                    message: General server error
+                    data: null
+                    error:
+                      message: UPDATE_FILE_REPOSITORY_FAIL
+                      cause:
+                        message: NO_FIELDS_TO_UPDATE
+                        stack: |-
+                          Error: NO_FIELDS_TO_UPDATE
+                        innerCause: null
+      security:
+      - bearerAuth: []
+  
+    delete:
+      tags:
+      - Fichier
+      summary: Delete
+      description: Delete
+      operationId: delete
+      parameters:
+        - name: file_id
+          in: path
+          schema:
+            type : integer
+            example: 1 
+          required: true
+      responses:
+        '200':
+          description: SUCCESS
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: Content-Type, Authorization
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET, POST, PUT, DELETE, OPTIONS, PATCH
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Request was successful
+                  data:
+                    type: boolean
+                    example: true
+                  error:
+                    nullable: true
+                    example: null
+              examples:
+                SUCCESS:
+                  value:
+                    message: Request was successful
+                    data: true
+                    error: null
+        '404':
+          description: ERROR - DELETE_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Resource not found.
+                  data:
+                    nullable: true
+                    example: null
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: DELETE_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND
+              examples:
+                ERROR - DELETE_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND:
+                  value:
+                    message: Resource not found.
+                    data: null
+                    error:
+                      message: DELETE_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND
+      security:
+      - bearerAuth: []
+
+  /api/file/{{file_id}}/hard:
+    delete:
+      tags:
+      - Fichier
+      summary: Delete hard
+      description: Delete hard
+      operationId: deleteHard
+      parameters:
+        - name: file_id
+          in: path
+          schema:
+            type : integer
+            example: 1 
+          required: true
+      responses:
+        '200':
+          description: SUCCESS
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: Content-Type, Authorization
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET, POST, PUT, DELETE, OPTIONS, PATCH
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Request was successful
+                  data:
+                    type: boolean
+                    example: true
+                  error:
+                    nullable: true
+                    example: null
+              examples:
+                SUCCESS:
+                  value:
+                    message: Request was successful
+                    data: true
+                    error: null
+        '404':
+          description: ERROR - DELETE_HARD_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Resource not found.
+                  data:
+                    nullable: true
+                    example: null
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: DELETE_HARD_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND
+              examples:
+                ERROR - DELETE_HARD_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND:
+                  value:
+                    message: Resource not found.
+                    data: null
+                    error:
+                      message: DELETE_HARD_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND
+        '500':
+          description: ERROR - DELETE_FILE_REPOSITORY_FAIL
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    nullable: true
+                    example: null
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: DELETE_FILE_REPOSITORY_FAIL
+                      cause:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: 'Cannot delete or update a parent row: a foreign key constraint fails (`app`.`link`, CONSTRAINT `link_ibfk_2` FOREIGN KEY (`file_id`) REFERENCES `file` (`id`))'
+                          stack:
+                            type: string
+                            example: |-
+                              Error: Cannot delete or update a parent row: a foreign key constraint fails
+                          innerCause:
+                            nullable: true
+                            example: null
+                  message:
+                    type: string
+                    example: General server error
+              examples:
+                ERROR - DELETE_FILE_REPOSITORY_FAIL:
+                  value:
+                    message: General server error
+                    data: null
+                    error:
+                      message: DELETE_FILE_REPOSITORY_FAIL
+                      cause:
+                        message: 'Cannot delete or update a parent row: a foreign key constraint fails (`app`.`link`, CONSTRAINT `link_ibfk_2` FOREIGN KEY (`file_id`) REFERENCES `file` (`id`))'
+                        stack: |-
+                          Error: Cannot delete or update a parent row: a foreign key constraint fails 
+                        innerCause: null
+      security:
+      - bearerAuth: []
+  
+  /file/{{file_id}}/download:
+    get:
+      tags:
+      - Fichier
+      summary: Dowload
+      description: Dowload
+      operationId: dowload
+      parameters:
+        - name: file_id
+          in: path
+          schema:
+            type : integer
+            example: 1 
+          required: true
+      responses:
+        '200':
+          description: ''
+      security:
+      - bearerAuth: []
+
+  /link:
+    post:
+      tags:
+      - Partage
+      summary: Create
+      description: Create
+      operationId: create2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file_id:
+                  type: number
+                  example: 12
+            examples:
+              Create:
+                value:
+                  file_id: 12
+      responses:
+        '201':
+          description: SUCCESS
+          headers:
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: Content-Type, Authorization
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET, POST, PUT, DELETE, OPTIONS, PATCH
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Resource successfully created
+                  data:
+                    type: object
+                    properties:
+                      link:
+                        type: object
+                        properties:
+                          id:
+                            type: number
+                            example: 13
+                          fileId:
+                            type: number
+                            example: 12
+                          userId:
+                            type: number
+                            example: 24
+                          revokedAt:
+                            type: string
+                            example: 2024-11-08T00:19:39.000Z
+                          createdAt:
+                            type: string
+                            example: 2024-11-07T00:19:39.000Z
+                          updatedAt:
+                            type: string
+                            example: 2024-11-07T00:19:39.000Z
+                      url:
+                        type: string
+                        example: https://localhost/api/download?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsaW5rIjoxMywiZmlsZSI6MTIsImlhdCI6MTczMDkzODc3OSwiZXhwIjoxNzMxMDI1MTc5fQ.9rU_AqsJkTQ6LVwjWmJ0uO6C3iNozonmDpHyaWZe6Y0
+                  error:
+                    nullable: true
+                    example: null
+              examples:
+                SUCCESS:
+                  value:
+                    message: Resource successfully created
+                    data:
+                      link:
+                        id: 13
+                        fileId: 12
+                        userId: 24
+                        revokedAt: 2024-11-08T00:19:39.000Z
+                        createdAt: 2024-11-07T00:19:39.000Z
+                        updatedAt: 2024-11-07T00:19:39.000Z
+                      url: https://localhost/api/download?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsaW5rIjoxMywiZmlsZSI6MTIsImlhdCI6MTczMDkzODc3OSwiZXhwIjoxNzMxMDI1MTc5fQ.9rU_AqsJkTQ6LVwjWmJ0uO6C3iNozonmDpHyaWZe6Y0
+                    error: null
+      security:
+      - bearerAuth: []
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+
+
+
+tags:
+  - name: Interface web
+  - name: Doc
+  - name: API
+  - name: Audit
+    description: "Vérification de l'état de l'API."
+  - name: Authentification
+    description: "Endpoints pour gérer l'authentification et les sessions utilisateurs."
+  - name: Utilisateurs
+    description: "Gestion des utilisateurs."
+  - name: Fichier
+    description: "Gestion des fichiers."
+  - name: Partage
+    description: "Gestion des partgage de fichier"
+  - name: Téléchargement
+    description: "Téléchargement des fichier partager"

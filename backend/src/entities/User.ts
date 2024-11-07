@@ -1,51 +1,34 @@
 export enum userRoleEnum {
   USER = "USER",
-  ADMNINISTRATOR = "ADMNINISTRATOR"
+  ADMINISTRATOR = "ADMINISTRATOR"
 }
 
 export interface UserDtoInterface {
-  id: number;
-  login: string;
-  password: string;
+  id: number
+  login: string
+  password: string
   role: userRoleEnum, 
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date
+  updatedAt: Date
+  revokedAt: Date | null
 }
 
 export class User {
-  id: number;
-  login: string;
-  password: string;
-  role: userRoleEnum;
-  createdAt: Date;
-  updatedAt: Date;
+  id: number
+  login: string
+  password: string
+  role: userRoleEnum
+  createdAt: Date
+  updatedAt: Date
+  revokedAt: Date | null
 
   constructor(dto: UserDtoInterface) {
-    this.id = dto.id;
-    this.login = dto.login;
-    this.password = dto.password;
-    this.role = dto.role;
-    this.createdAt = dto.createdAt;
-    this.updatedAt = dto.updatedAt;
+    this.id = dto.id
+    this.login = dto.login
+    this.password = dto.password
+    this.role = dto.role
+    this.createdAt = dto.createdAt
+    this.updatedAt = dto.updatedAt
+    this.revokedAt = dto.revokedAt
   }
 }
-
-const dtoUser: UserDtoInterface = {
-	id: 1,
-	login: "user",
-	password: "123",
-  role: userRoleEnum.USER, 
-	createdAt: new Date,
-	updatedAt: new Date
-}
-export const userExemple: User = new User(dtoUser)
-
-const dtoAdmin: UserDtoInterface = {
-	id: 1,
-	login: "user",
-	password: "123",
-  role: userRoleEnum.ADMNINISTRATOR, 
-	createdAt: new Date,
-	updatedAt: new Date
-}
-export const adminExemple: User = new User(dtoAdmin)

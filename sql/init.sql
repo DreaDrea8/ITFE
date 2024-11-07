@@ -4,10 +4,12 @@ use app;
 -- Création de la table `user`
 create table if not exists `user` (
     id int primary key auto_increment,
-    login varchar(255) not null,
+    login varchar(255) not null UNIQUE,
     password varchar(255) not null,
+    role ENUM('ADMINISTRATOR', 'USER') NOT NULL,
     created_at timestamp default current_timestamp,
-    updated_at timestamp default current_timestamp on update current_timestamp
+    updated_at timestamp default current_timestamp on update current_timestamp,
+    revoked_at timestamp default null
 );
 
 -- Création de la table `reference`
@@ -16,7 +18,8 @@ create table if not exists `reference` (
     signature varchar(255) not null,
     `usage` int,
     created_at timestamp default current_timestamp not null,
-    updated_at timestamp default current_timestamp on update current_timestamp not null
+    updated_at timestamp default current_timestamp on update current_timestamp not null,
+    revoked_at timestamp default null
 );
 
 -- Création de la table `file`
@@ -29,10 +32,10 @@ create table if not exists `file` (
     mimetype varchar(255),
     user_id int not null,
     reference_id int not null,
-    size int,
+    size int not null,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp on update current_timestamp,
-    deleted_at timestamp default null,
+    revoked_at timestamp default null,
     foreign key (user_id) references `user`(id),
     foreign key (reference_id) references `reference`(id)
 );
@@ -42,13 +45,16 @@ create table if not exists `link` (
     id int primary key auto_increment,
     user_id int,
     file_id int not null,
-    expired_at timestamp not null,
     created_at timestamp default current_timestamp not null,
     updated_at timestamp default current_timestamp on update current_timestamp not null,
+    revoked_at timestamp not null,
     foreign key (user_id) references `user`(id),
     foreign key (file_id) references `file`(id)
 );
 
 -- Insertion de données dans `user`
-insert into `user` (login, password) values ('roger', 'roger');
-insert into `user` (login, password) values ('jean', 'jean');
+-- password = 123
+INSERT INTO `user` (login, password, role) 
+VALUES 
+  ('Roger', '$2a$10$WtFFyPed351IDdikFmlJBuW.bqk3rlTLZW9J/y4XR5LwMcsX3oyHW', 'ADMINISTRATOR'),
+  ('Jean', '$2a$10$WtFFyPed351IDdikFmlJBuW.bqk3rlTLZW9J/y4XR5LwMcsX3oyHW', 'USER');

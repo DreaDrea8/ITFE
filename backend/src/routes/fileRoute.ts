@@ -1,47 +1,48 @@
-import { Router, Request, Response } from "express"
+import { Router } from "express"
 
 import { Service } from "@src/services/service"
-import { createFileSchema } from "@src/schema/createFileSchema"
-import { Repository } from "@src/repositories/Repository"
-import { getFileSchema } from "@src/schema/getFileSchema"
 import { ReadFile } from "@src/controllers/file/ReadFile"
-import { ReadFiles } from "@src/controllers/file/ReadFiles"
+import { Repository } from "@src/repositories/Repository"
+import { getFileSchema } from "@src/schemas/getFileSchema"
 import { UpdateFile } from "@src/controllers/file/UpdateFile"
 import { DeleteFile } from "@src/controllers/file/DeleteFile"
-import { updateFileSchema } from "@src/schema/updateFileSchema"
-import { deleteFileSchema } from "@src/schema/deleteFileSchema"
+import { createFileSchema } from "@src/schemas/createFileSchema"
+import { updateFileSchema } from "@src/schemas/updateFileSchema"
+import { deleteFileSchema } from "@src/schemas/deleteFileSchema"
 import { DownloadFile } from "@src/controllers/file/DownloadFile"
-import upload, { CreateFile } from "@src/controllers/file/CreateFile"
+import { ReadFileList } from "@src/controllers/file/ReadFileList"
 import { DeleteHardFile } from "@src/controllers/file/DeleteHardFile"
-import { deleteHardFileSchema } from "@src/schema/deleteHardFileSchema"
-import { GetTotalSizeFile } from "@src/controllers/file/GetTotalSizeFile"
+import upload, { CreateFile } from "@src/controllers/file/CreateFile"
+import { deleteHardFileSchema } from "@src/schemas/deleteHardFileSchema"
+import { ReadTotalSizeFile } from "@src/controllers/file/ReadTotalSizeFile"
 
 
 export class FileRoute {
   router: Router = Router()
+
   readFile: ReadFile
-  readFiles: ReadFiles
   createFile: CreateFile
   updateFile: UpdateFile
   deleteFile: DeleteFile
+  readFileList: ReadFileList
   downloadFile: DownloadFile
   deleteHardFile: DeleteHardFile
-  getTotalSizeFile: GetTotalSizeFile
+  readTotalSizeFile: ReadTotalSizeFile
 
   constructor(repository : Repository, service: Service){
     this.readFile = new ReadFile(repository, service)
-    this.readFiles = new ReadFiles(repository, service)
     this.createFile = new CreateFile(repository, service)
     this.updateFile = new UpdateFile(repository, service)
     this.deleteFile = new DeleteFile(repository, service)
     this.downloadFile = new DownloadFile(repository, service) 
+    this.readFileList = new ReadFileList(repository, service)
     this.deleteHardFile = new DeleteHardFile(repository, service)
-    this.getTotalSizeFile = new GetTotalSizeFile(repository, service) 
+    this.readTotalSizeFile = new ReadTotalSizeFile(repository, service) 
 
     this.router.post("/", upload.single("file"), createFileSchema, this.createFile.execute)
-    this.router.get("/", this.readFiles.execute)
+    this.router.get("/", this.readFileList.execute)
     this.router.get("/:file_id(\\d+)",getFileSchema, this.readFile.execute)
-    this.router.get("/size", this.getTotalSizeFile.execute)
+    this.router.get("/size", this.readTotalSizeFile.execute)
     this.router.patch("/:file_id(\\d+)", updateFileSchema, this.updateFile.execute)
     this.router.get("/:file_id(\\d+)/download", getFileSchema, this.downloadFile.execute)
     this.router.delete("/:file_id(\\d+)", deleteFileSchema, this.deleteFile.execute)

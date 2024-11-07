@@ -18,7 +18,7 @@ export class Repository {
     this.service = service
     this.database = database
 
-    this.userRepository = new UserRepository(this.database)
+    this.userRepository = new UserRepository(this.database, this.service)
     this.fileRepository = new FileRepository(this.database, this.service)
     this.linkRepository = new LinkRepository(this.database, this.service)
     this.referenceRepository = new ReferenceRepository(this.database, this.service)

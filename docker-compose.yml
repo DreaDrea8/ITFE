@@ -1,3 +1,6 @@
+# Dans le dockerfile le context est à la racine du projet 
+# Pour la prochaine fois set context: ./chemin/vers/dossier dockerfile: ./dockerfile 
+# dans dockerfile actuellement ./ = dossier du docker compose // avec context ./ =  ./chemin/vers/dossier
 services:
   proxy:
     container_name: nginx
@@ -20,7 +23,7 @@ services:
   frontend:
     container_name: frontend
     build:
-      context: .
+      context: . 
       dockerfile: ./frontend/Dockerfile
       target: ${NODE_ENV}
     restart: always
@@ -56,7 +59,7 @@ services:
         condition: service_healthy
 
   mariadb:
-    container_name: ${DB_HOST}
+    container_name: mariadb
     image: mariadb:11.5.2
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSORD}

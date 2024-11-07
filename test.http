@@ -2,29 +2,107 @@
 GET https://localhost
 
 
+### AUDIT ###
+
+### OTHER 
 ###
-# @name checkHealth
+# @name notFound
+GET https://localhost/api/*
+Content-Type: application/json
+
+###
+# Responses
+404 Not Found
+{
+  "message": "Resource not found",
+  "data": null,
+  "error": {
+      "message": "ROUTE_NOT_FOUND",
+      "cause": null
+  }
+}
+
+
+### HEALTH 
+###
+# @name health
 GET https://localhost/api/health
 Content-Type: application/json
 
-### FILE 
+###
+# Responses 
+200 OK
+{
+  "message": "Infos retrieved successfully",
+  "data": "Healthy !!",
+  "error": null
+}
+
+### Authentification ### 
+### AUTH 
+###
+# Request
+# @name login
+POST https://localhost/api/auth
+Content-Type: application/json
+
+{
+  "login": "Roger",
+  "password" : "123"
+}
 
 ###
-# @name addFile
-POST https://localhost/api/file
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+# Responses 
+200 OK
+{
+  "message": "Request was successful",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTczMDc1MzY1MywiZXhwIjoxNzMwNzY4MDUzfQ.P6NApKVZOWDhui247oKARMbop_pv-uvnQLxeXe_0ppM"
+  },
+  "error": null
+}
 
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="tilte"
+400 Bad Request
+{
+  "message": "Invalid request",
+  "data": null,
+  "error": {
+    "errors": [
+      {
+        "type": "field",
+        "value": "",
+        "msg": "Login is required",
+        "path": "login",
+        "location": "body"
+      },
+      {
+        "type": "field",
+        "value": "",
+        "msg": "Login required 3 caracteres",
+        "path": "login",
+        "location": "body"
+      },
+      {
+        "type": "field",
+        "value": "",
+        "msg": "Password is required",
+        "path": "password",
+        "location": "body"
+      }
+    ]
+  }
+}
 
-Mon titre
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="Description"
+400 Bad Request
+{
+  "message": "Authentication required",
+  "data": null,
+  "error": "AUTH_CONTROLLER_FAIL"
+}
 
-Ma description
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; filename="/C:/Users/rapha/Desktop/Hetic/web3/NodeJs/ITFE/progit.pdf"
-Content-Type: application/pdf
-
-
-------WebKitFormBoundary7MA4YWxkTrZu0gW--
+500 Internal Server Error
+{
+  "message": "General server error",
+  "data": null,
+  "error": "unknown"
+}

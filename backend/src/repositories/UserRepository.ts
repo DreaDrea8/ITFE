@@ -1,59 +1,118 @@
 import { Connection } from "mysql2"
 
-import { User, UserDtoInterface } from "@src/entities/User"
-import loggerService from "@src/services/logger/LoggerService";
-
-export class UserRepository {
-  database: Connection;
-
-  constructor(database: Connection) {
-    this.database = database;
-  }
-
-  async addUser(dto: addUserDtoInterface): Promise<User | Error> {
-    try {
-      loggerService.success('Début d\'insertion de l\'utilisateur');
-      
-      // Insère un nouvel utilisateur et récupère l'ID
-      const insertQuery = "INSERT INTO user (login, password) VALUES (?, ?)";
-      const result: any = this.database.query(insertQuery, [dto.login, dto.password]);
-
-      loggerService.obj(result)
-
-      // Crée un nouvel utilisateur avec les informations récupérées
-      const userRow = result[0];
-      const newUserDto: UserDtoInterface = {
-        id: userRow.id,
-        login: userRow.login,
-        password: userRow.password,
-        createdAt: userRow.created_at,
-        updatedAt: userRow.updated_at,
-      };
-
-      loggerService.success('Utilisateur inséré avec succès');
-      return new User(newUserDto);
-    } catch (error) {
-      loggerService.error(`Erreur lors de l'insertion de l'utilisateur`);
-      throw error;
-    }
-  }
-}
+import ERRORS from "@src/commons/Error"
+import { Service } from "@src/services/service"
+import { User, userRoleEnum } from "@src/entities/User"
 
 
-  //Get user by login
-  // async getUserByLogin(login: string): Promise<User | null> {
-  //   const query = "SELECT * FROM user WHERE login = ?";
-  //   const rows = await this.database.execute(query, [login]);
-  //   if ((rows as any).length === 0) {
-  //     return null;
-  //   }
-  //   const userDto = rows[0] as UserDtoInterface;
-  //   return new User(userDto);
-  // }
-
-
-
-export interface addUserDtoInterface {
+export interface insertUserDtoInterface {
   login: string
   password: string 
+  role?: userRoleEnum
+}
+
+export interface selectUserByIdDtoInterface {
+  id: number
+}
+
+export interface selectUserByLoginDtoInterface {
+  login: string
+}
+
+export class UserRepository {
+  service: Service
+  database: Connection
+
+  constructor(database: Connection, service: Service) {
+    this.service = service
+    this.database = database
+  }
+
+  async insertUser(dto: insertUserDtoInterface): Promise<User> {
+    try {
+      const existingUser = await this.selectUserByLogin({ login: dto.login })
+      if (existingUser) {
+        this.service.loggerService.error(ERRORS.INSERT_USER_REPOSITORY_FAIL_USER_ALREADY_EXIT)
+        throw new Error(ERRORS.INSERT_USER_REPOSITORY_FAIL_USER_ALREADY_EXIT)
+      }
+
+      const role = dto.role ? dto.role : userRoleEnum.USER
+      const insertQuery = `
+        INSERT INTO user (login, password, role) 
+        VALUES (?, ?, ?)`
+      const result: any = await this.database.promise().query(insertQuery, [dto.login, dto.password, role])
+
+      const user: User|null = await this.selectUserById({id: result[0].insertId})
+      if(!user){
+        this.service.loggerService.error(ERRORS.INSERT_USER_REPOSITORY_FAIL_TO_ACCES_USER)
+        throw new Error(ERRORS.INSERT_USER_REPOSITORY_FAIL_TO_ACCES_USER)
+      }
+
+      return Promise.resolve(user)
+
+    } catch (error) {
+      this.service.loggerService.error(ERRORS.INSERT_USER_REPOSITORY_FAIL)
+      throw new Error(ERRORS.INSERT_USER_REPOSITORY_FAIL, { cause: error })
+    }
+  }
+
+  async selectUserByLogin (dto: selectUserByLoginDtoInterface): Promise<User|null> {
+    try {
+      const selectQuery = `
+        SELECT id, login, password, role, created_at, updated_at
+        FROM \`user\`
+        WHERE login = ?
+          AND (revoked_at IS NULL OR revoked_at > NOW())`
+      const result: any = await this.database.promise().query(selectQuery, [dto.login])
+      const user = result[0]
+
+      if (user.length !== 1) return Promise.resolve(null)
+  
+      const userResult: User = new User({
+        id: user[0].id,
+        login: user[0].login,
+        password: user[0].password,
+        role: user[0].role,
+        createdAt: new Date(user[0].created_at),
+        updatedAt: new Date(user[0].updated_at),
+        revokedAt: user[0].revoked_at ? new Date(user[0].revoked_at) : null
+      })
+  
+      return Promise.resolve(userResult)
+      
+    } catch (error) {
+      this.service.loggerService.error(ERRORS.SELECT_USER_BY_LOGIN_REPOSITORY_FAIL)
+      throw new Error(ERRORS.SELECT_USER_BY_LOGIN_REPOSITORY_FAIL, { cause: error })
+    }
+  }
+
+  async selectUserById (dto: selectUserByIdDtoInterface): Promise<User|null> {
+    try {
+      const selectQuery = `
+        SELECT id, login, password, role, created_at, updated_at
+        FROM \`user\`
+        WHERE id = ?
+          AND (revoked_at IS NULL OR revoked_at > NOW())`
+      const result: any = await this.database.promise().query(selectQuery, [dto.id])
+      const user = result[0]
+
+      if (user.length !== 1) return Promise.resolve(null)
+  
+      const userResult = new User({
+        id: user[0].id,
+        login: user[0].login,
+        password: user[0].password,
+        role: user[0].role,
+        createdAt: new Date(user[0].created_at),
+        updatedAt: new Date(user[0].updated_at),
+        revokedAt: user[0].revoked_at ? new Date(user[0].revoked_at) : null
+      })
+  
+      return Promise.resolve(userResult)
+
+    } catch (error) {
+      this.service.loggerService.error(ERRORS.SELECT_USER_REPOSITORY_FAIL)
+      throw new Error(ERRORS.SELECT_USER_REPOSITORY_FAIL, { cause: error })
+    }
+  }
 }

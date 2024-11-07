@@ -16,7 +16,7 @@ export default class App {
 	private readonly port: number|string = API_PORT
 	private readonly host: string = API_HOST
 	private readonly corsOptions = {
-		origin: '*',
+		origin: '*'
 	}
 	private server: Server
 	public app: Application
@@ -41,19 +41,19 @@ export default class App {
   }
 
   private async setup() {
-    this.app.use(cors(this.corsOptions));
-    this.app.use(bodyParser.json());
-		this.app.use(bodyParser.urlencoded());
+    this.app.use(cors(this.corsOptions))
+    this.app.use(bodyParser.json())
+		this.app.use(bodyParser.urlencoded())
   }
 
 	private mountHealthCheck() {
 		this.app.get("/api/health", (req: Request, res: Response) => {
+			this.service.loggerService.success('Api health')
 			const result:jsonContent = {
         message: 'Infos retrieved successfully',
         data: 'Healthy !!', 
         error: null
       }
-			this.service.loggerService.success('Api health')
 			res.status(200).json(result)
 		})
 	}
@@ -65,22 +65,23 @@ export default class App {
 
 	private mountHandleError() {
 		this.app.use((req: Request, res: Response, next: NextFunction) => {
-			this.service.loggerService.error(ERRORS.ROUTE_NOT_FOUND);
-			res.status(404).json({
-				'message': 'You are lost.',
-				'data': '',
-				'error': ERRORS.ROUTE_NOT_FOUND
-			})
+			this.service.loggerService.error(ERRORS.ROUTE_NOT_FOUND)
+      const result: jsonContent = {
+        message: "Resource not found",
+        data: null,
+        error: this.service.formatError( null, ERRORS.ROUTE_NOT_FOUND)
+      }
+      res.status(404).json(result)
 		})
 	}
   
 	private listen() {
 		this.server = this.app.listen(this.port, () => {
 			console.log(
-				`App listening on port: http://${this.host}:${this.port} in ${process.env.NODE_ENV} mode`
+				`App listening on port: https://${this.host}:${this.port} in ${process.env.NODE_ENV} mode`
 			)
 			console.log('Press CTRL-C to stop\n')
-		});
+		})
 
 		return this.server
 	}
