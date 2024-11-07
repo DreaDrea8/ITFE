@@ -1,21 +1,18 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express"
 
+import { Service } from "@src/services/service"
 import { Repository } from "@src/repositories/Repository"
-import { GetAllUser } from "@src/controllers/user/GetAllUser"
+import { CreateUser } from "@src/controllers/user/CreateUser"
+import { createUserSchema } from "@src/schemas/createUserSchema"
 
-import { AddUser } from "@src/controllers/user/AddUser";
-import loggerService from "@src/services/logger/LoggerService";
 
 export class UserRoute {
-  router: Router = Router();
-  getAllUser: GetAllUser;
-  addUser: AddUser;
+  router: Router = Router()
+  createUser: CreateUser
 
-  constructor(repository: Repository) {
-    this.getAllUser = new GetAllUser(repository);
-    this.addUser = new AddUser(repository);
+  constructor(repository : Repository, service: Service) {
+    this.createUser = new CreateUser(repository, service)
 
-    this.router.get("/", this.getAllUser.execute);
-    this.router.post("/", this.addUser.execute);
+    this.router.post("/", createUserSchema, this.createUser.execute)
   }
 }

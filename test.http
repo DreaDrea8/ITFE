@@ -2,18 +2,107 @@
 GET https://localhost
 
 
+### AUDIT ###
+
+### OTHER 
+###
+# @name notFound
+GET https://localhost/api/*
+Content-Type: application/json
 
 ###
+# Responses
+404 Not Found
+{
+  "message": "Resource not found",
+  "data": null,
+  "error": {
+      "message": "ROUTE_NOT_FOUND",
+      "cause": null
+  }
+}
+
+
+### HEALTH 
+###
+# @name health
 GET https://localhost/api/health
-Content-Type: application/json;
-
-
+Content-Type: application/json
 
 ###
-POST https://localhost/api/user
-Content-Type: application/json;
+# Responses 
+200 OK
+{
+  "message": "Infos retrieved successfully",
+  "data": "Healthy !!",
+  "error": null
+}
+
+### Authentification ### 
+### AUTH 
+###
+# Request
+# @name login
+POST https://localhost/api/auth
+Content-Type: application/json
 
 {
-  "login":"j-f",
-  "password": "test"
+  "login": "Roger",
+  "password" : "123"
+}
+
+###
+# Responses 
+200 OK
+{
+  "message": "Request was successful",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTczMDc1MzY1MywiZXhwIjoxNzMwNzY4MDUzfQ.P6NApKVZOWDhui247oKARMbop_pv-uvnQLxeXe_0ppM"
+  },
+  "error": null
+}
+
+400 Bad Request
+{
+  "message": "Invalid request",
+  "data": null,
+  "error": {
+    "errors": [
+      {
+        "type": "field",
+        "value": "",
+        "msg": "Login is required",
+        "path": "login",
+        "location": "body"
+      },
+      {
+        "type": "field",
+        "value": "",
+        "msg": "Login required 3 caracteres",
+        "path": "login",
+        "location": "body"
+      },
+      {
+        "type": "field",
+        "value": "",
+        "msg": "Password is required",
+        "path": "password",
+        "location": "body"
+      }
+    ]
+  }
+}
+
+400 Bad Request
+{
+  "message": "Authentication required",
+  "data": null,
+  "error": "AUTH_CONTROLLER_FAIL"
+}
+
+500 Internal Server Error
+{
+  "message": "General server error",
+  "data": null,
+  "error": "unknown"
 }

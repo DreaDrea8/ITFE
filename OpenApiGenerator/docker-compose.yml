@@ -1,0 +1,9 @@
+services:
+  postman2openapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./shared:/app/shared
+    working_dir: /app/shared
+    command: ["/bin/sh", "-c", "tail -f /dev/null"]

@@ -1,0 +1,2514 @@
+{
+	"info": {
+		"_postman_id": "32ad26fb-4c8c-4582-b4f1-1d0d5a1f4e72",
+		"name": "Start",
+		"description": "# 🚀 Get started here",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30055075"
+	},
+	"item": [
+		{
+			"name": "Interface web",
+			"item": [
+				{
+					"name": "Home",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "Audit",
+					"item": [
+						{
+							"name": "Health",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}api/health",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"health"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "SUCCES",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}api/health",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"health"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 17:33:35 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "75"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"4b-tgb8MxnWEQhKhS5f0p6q6dyQaMQ\""
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "Content-Type, Authorization"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Infos retrieved successfully\",\n    \"data\": \"Healthy !!\",\n    \"error\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "Any",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}api/any",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"any"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "ERROR  - ROUTE_NOT_FOUND",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}api/any",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"any"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 17:35:28 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "95"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"5f-KSgd/aCb3uiVwiJxuoFPwnOpGDQ\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Resource not found\",\n    \"data\": null,\n    \"error\": {\n        \"message\": \"ROUTE_NOT_FOUND\",\n        \"cause\": null\n    }\n}"
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"var token = pm.response.json().data.token;\r",
+											"pm.collectionVariables.set(\"Token\", token);\r",
+											"\r",
+											"console.log(\r",
+											"  pm.collectionVariables.get('Token')\r",
+											")\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response schema is valid\", function () {\r",
+											"  var schema = {\r",
+											"    type: \"object\",\r",
+											"    properties: {\r",
+											"      message: { type: \"string\" },\r",
+											"      data: {\r",
+											"        type: \"object\",\r",
+											"        properties: {\r",
+											"          token: { type: \"string\" }\r",
+											"        },\r",
+											"        required: [\"token\"]\r",
+											"      },\r",
+											"      error: { type: [\"string\", \"null\"] }\r",
+											"    },\r",
+											"    required: [\"message\", \"data\", \"error\"]\r",
+											"  };\r",
+											"\r",
+											"  pm.expect(ajv.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"login\": \"{{Admin-login}}\",\r\n    \"password\": \"{{Admin-password}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}api/auth",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "SUCCESS",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"{{Admin-login}}\",\r\n    \"password\": \"{{Admin-password}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}api/auth",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"auth"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 18:01:16 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "212"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"d4-YDmPAtSVLgsiULkixOchUGaBVFo\""
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "Content-Type, Authorization"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Request was successful\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMDkxNjA3NiwiZXhwIjoxNzMwOTMwNDc2fQ.TLXkwqeW8EDvilvp-YgKULZ46fvYjj-CpZQBupAHTVc\"\n    },\n    \"error\": null\n}"
+								},
+								{
+									"name": "ERROR - Wrong login & Password",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"WRONG-LOGIN\": \"{{Admin-login}}\",\r\n    \"WRONG-PASSWORD\": \"{{Admin-password}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}api/auth",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"auth"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 18:07:43 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "474"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1da-Ydiwxp4jLhhPLM0+en+8orHjfzw\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Invalid request\",\n    \"data\": null,\n    \"error\": {\n        \"errors\": [\n            {\n                \"type\": \"field\",\n                \"msg\": \"Login is required\",\n                \"path\": \"login\",\n                \"location\": \"body\"\n            },\n            {\n                \"type\": \"field\",\n                \"msg\": \"Login required 3 caracteres\",\n                \"path\": \"login\",\n                \"location\": \"body\"\n            },\n            {\n                \"type\": \"field\",\n                \"msg\": \"Login must be a string\",\n                \"path\": \"login\",\n                \"location\": \"body\"\n            },\n            {\n                \"type\": \"field\",\n                \"msg\": \"Password is required\",\n                \"path\": \"password\",\n                \"location\": \"body\"\n            },\n            {\n                \"type\": \"field\",\n                \"msg\": \"Password must be a string\",\n                \"path\": \"password\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+								},
+								{
+									"name": "ERROR - AUTH_CONTROLLER_FAIL - Wrong login",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"Paul\",\r\n    \"password\": \"{{Admin-password}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}api/auth",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"auth"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 18:09:38 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "72"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"48-5LQp68xw0kJmy/a91BkDFBK+irM\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Invalid request\",\n    \"data\": null,\n    \"error\": \"AUTH_CONTROLLER_FAIL\"\n}"
+								},
+								{
+									"name": "ERROR - AUTH_CONTROLLER_FAIL - Wrong password",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"{{Admin-login}}\",\r\n    \"password\": \"123...\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}api/auth",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"auth"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 18:12:49 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "72"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"48-5LQp68xw0kJmy/a91BkDFBK+irM\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Invalid request\",\n    \"data\": null,\n    \"error\": \"AUTH_CONTROLLER_FAIL\"\n}"
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Create",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"Random-user-login\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+											"pm.collectionVariables.set(\"Random-user-password\", pm.variables.replaceIn(\"{{$randomPassword}}\"));\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test pour vérifier que le code de statut est 201\r",
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"// Test pour valider le schéma de la réponse\r",
+											"pm.test(\"Response schema is valid\", function () {\r",
+											"    var schema = {\r",
+											"        type: \"object\",\r",
+											"        properties: {\r",
+											"            message: { type: \"string\" },\r",
+											"            data: {\r",
+											"                type: \"object\",\r",
+											"                properties: {\r",
+											"                    user : {\r",
+											"                        type: \"object\",\r",
+											"                        properties: {\r",
+											"                            id: { type: \"number\" },\r",
+											"                            login: { type: \"string\" },\r",
+											"                            password: { type: \"string\" },\r",
+											"                            role: { type: \"string\" },\r",
+											"                            createdAt: { type: \"string\" },\r",
+											"                            updatedAt: { type: \"string\" },\r",
+											"                            revokedAt: { type: [\"string\", \"null\"] }\r",
+											"                        },\r",
+											"                        required: [\"id\", \"login\", \"password\", \"role\", \"createdAt\", \"updatedAt\"]\r",
+											"                    },\r",
+											"                    token: { type: \"string\" }\r",
+											"                },\r",
+											"                required: [\"user\", \"token\"]\r",
+											"\r",
+											"            },\r",
+											"            error: { type: [\"string\", \"null\"] }\r",
+											"        },\r",
+											"        required: [\"message\", \"data\", \"error\"]\r",
+											"    };\r",
+											"\r",
+											"    pm.expect(pm.response.json()).to.have.jsonSchema(schema); // Fixed the error by using pm.response.json() and .to.have.jsonSchema()\r",
+											"});\r",
+											"\r",
+											"// Récupération des informations de connexion depuis les variables de collection\r",
+											"var login = pm.collectionVariables.get(\"Random-user-login\");\r",
+											"var password = pm.collectionVariables.get(\"Random-user-password\");\r",
+											"\r",
+											"console.log({login,password})\r",
+											"\r",
+											"\r",
+											"// Test pour vérifier la connexion de l'utilisateur\r",
+											"pm.test(\"User can connect\", function () {\r",
+											"    pm.sendRequest({\r",
+											"        url: pm.collectionVariables.get(\"base_url\") + \"api/auth\",\r",
+											"        method: \"POST\",\r",
+											"        header: {\r",
+											"            \"Content-Type\": \"application/json\"\r",
+											"        },\r",
+											"        body: {\r",
+											"            mode: \"raw\",\r",
+											"            raw: JSON.stringify({\r",
+											"                login: login,\r",
+											"                password: password\r",
+											"            })\r",
+											"        }\r",
+											"    }, function (err, res) {\r",
+											"        if (err) {\r",
+											"            console.log(\"Erreur lors de l'authentification :\", err);\r",
+											"        } else {\r",
+											"            pm.test(\"Status code is 200\", function () {\r",
+											"                pm.expect(res.code).to.equal(200); // Utiliser 'res' au lieu de 'pm.response'\r",
+											"            });\r",
+											"\r",
+											"            pm.test(\"Response schema is valid for authentication\", function () {\r",
+											"                var schema = {\r",
+											"                    type: \"object\",\r",
+											"                    properties: {\r",
+											"                        message: { type: \"string\" },\r",
+											"                        data: {\r",
+											"                            type: \"object\",\r",
+											"                            properties: {\r",
+											"                                token: { type: \"string\" }\r",
+											"                            },\r",
+											"                            required: [\"token\"]\r",
+											"                        },\r",
+											"                        error: { type: [\"string\", \"null\"] }\r",
+											"                    },\r",
+											"                    required: [\"message\", \"data\", \"error\"]\r",
+											"                };\r",
+											"\r",
+											"                pm.expect(res.json()).to.have.jsonSchema(schema); // Utiliser 'res.json()' pour la réponse de l'authentification\r",
+											"            });\r",
+											"        }\r",
+											"    });\r",
+											"});\r",
+											"\r",
+											"// Supprimer les variables de collection\r",
+											"pm.collectionVariables.unset(\"Random-user-login\");\r",
+											"pm.collectionVariables.unset(\"Random-user-password\");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"login\": \"{{Random-user-login}}\",\r\n    \"password\": \"{{Random-user-password}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}api/user",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "SUCCESS",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"{{Random-user-login}}\",\r\n    \"password\": \"{{Random-user-password}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}api/user",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 19:45:18 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "439"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1b7-HRI2wZaaOI0N/LHDFsJuj11p4gk\""
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "Content-Type, Authorization"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Resource successfully created\",\n    \"data\": {\n        \"user\": {\n            \"id\": 21,\n            \"login\": \"Alexanne\",\n            \"password\": \"$2a$10$7gX6se2yQDItIGaPBDV78OyHx6X3FD8m9fyPOC2ZPbKrQOV4hKgri\",\n            \"role\": \"USER\",\n            \"createdAt\": \"2024-11-06T19:45:18.000Z\",\n            \"updatedAt\": \"2024-11-06T19:45:18.000Z\",\n            \"revokedAt\": null\n        },\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIxLCJpYXQiOjE3MzA5MjIzMTgsImV4cCI6MTczMDkzNjcxOH0.HyG5OPnmZSV8MDopMNH8Wc5ZVpnyu8GkdulBnTKGYHo\"\n    },\n    \"error\": null\n}"
+								},
+								{
+									"name": "ERROR - Wrong login & password",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"wrong-login\": \"{{Random-user-login}}\",\r\n    \"wrong-password\": \"{{Random-user-password}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}api/user",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 19:46:08 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "566"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"236-bGQ32jfYe6SVhSYXn6Kl6hVuHR4\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Invalid request\",\n    \"data\": null,\n    \"error\": {\n        \"errors\": [\n            {\n                \"type\": \"field\",\n                \"msg\": \"Login is required\",\n                \"path\": \"login\",\n                \"location\": \"body\"\n            },\n            {\n                \"type\": \"field\",\n                \"msg\": \"Login required 3 caracteres\",\n                \"path\": \"login\",\n                \"location\": \"body\"\n            },\n            {\n                \"type\": \"field\",\n                \"msg\": \"Login must be a string\",\n                \"path\": \"login\",\n                \"location\": \"body\"\n            },\n            {\n                \"type\": \"field\",\n                \"msg\": \"Password is required\",\n                \"path\": \"password\",\n                \"location\": \"body\"\n            },\n            {\n                \"type\": \"field\",\n                \"msg\": \"Password required 3 caracteres\",\n                \"path\": \"password\",\n                \"location\": \"body\"\n            },\n            {\n                \"type\": \"field\",\n                \"msg\": \"Password must be a string\",\n                \"path\": \"password\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "File",
+					"item": [
+						{
+							"name": "Create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 201\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Schema validation for the response is successful\", function () {\r",
+											"  var schema = {\r",
+											"    type: \"object\",\r",
+											"    properties: {\r",
+											"      message: { type: \"string\" },\r",
+											"      data: {\r",
+											"        type: \"object\",\r",
+											"        properties: {\r",
+											"          id: { type: \"number\" },\r",
+											"          libelle: { type: \"string\" },\r",
+											"          description: { type: \"string\" },\r",
+											"          fileName: { type: \"string\" },\r",
+											"          originalFileName: { type: \"string\" },\r",
+											"          mimetype: { type: \"string\" },\r",
+											"          userId: { type: \"number\" },\r",
+											"          referenceId: { type: \"number\" },\r",
+											"          size: { type: \"number\" },\r",
+											"          createdAt: { type: \"string\", format: \"date-time\" },\r",
+											"          updatedAt: { type: \"string\", format: \"date-time\" },\r",
+											"          revokedAt: { type: [\"string\", \"null\"], format: \"date-time\" }\r",
+											"        },\r",
+											"        required: [\r",
+											"          \"id\", \"libelle\", \"description\", \"fileName\", \"originalFileName\",\r",
+											"          \"mimetype\", \"userId\", \"referenceId\", \"size\", \"createdAt\", \"updatedAt\"\r",
+											"        ]\r",
+											"      },\r",
+											"      error: { type: [\"string\", \"null\"] },\r",
+											"    },\r",
+											"    required: [\"message\", \"data\", \"error\"]\r",
+											"  };\r",
+											"\r",
+											"  pm.expect(pm.response.json()).to.have.jsonSchema(schema);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "libelle",
+											"value": "Mon titre",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Ma description",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/rapha/Desktop/Hetic/web3/NodeJs/ITFE/files/progit.pdf"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}api/file",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"file"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "SUCCESS",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "libelle",
+													"value": "Mon titre",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "Ma description",
+													"type": "text"
+												},
+												{
+													"key": "file",
+													"type": "file",
+													"src": "/C:/Users/rapha/Desktop/Hetic/web3/NodeJs/ITFE/files/progit.pdf"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/file",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"file"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 20:03:29 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "343"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"157-wVaCWoP6qLyQwuPivf2dyNFh868\""
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "Content-Type, Authorization"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Resource successfully created\",\n    \"data\": {\n        \"id\": 16,\n        \"libelle\": \"Mon titre\",\n        \"description\": \"Ma description\",\n        \"fileName\": \"file\",\n        \"originalFileName\": \"progit.pdf\",\n        \"mimetype\": \"application/pdf\",\n        \"userId\": 1,\n        \"referenceId\": 1,\n        \"size\": 13171736,\n        \"createdAt\": \"2024-11-06T20:03:29.000Z\",\n        \"updatedAt\": \"2024-11-06T20:03:29.000Z\",\n        \"revokedAt\": null\n    },\n    \"error\": null\n}"
+								},
+								{
+									"name": "ERROR - Wrong libelle",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "wrong-libelle",
+													"value": "Mon titre",
+													"type": "text"
+												},
+												{
+													"key": "wrong-description",
+													"value": "Ma description",
+													"type": "text"
+												},
+												{
+													"key": "file",
+													"type": "file",
+													"src": "/C:/Users/rapha/Desktop/Hetic/web3/NodeJs/ITFE/files/progit.pdf"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}api/file",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"file"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 20:05:11 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "320"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"140-5WlJzLKPxbYrDixj7CGNonPzxAw\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Invalid request\",\n    \"data\": null,\n    \"error\": {\n        \"errors\": [\n            {\n                \"type\": \"field\",\n                \"msg\": \"Libellé is required\",\n                \"path\": \"libelle\",\n                \"location\": \"body\"\n            },\n            {\n                \"type\": \"field\",\n                \"msg\": \"Libellé required 2 caracteres\",\n                \"path\": \"libelle\",\n                \"location\": \"body\"\n            },\n            {\n                \"type\": \"field\",\n                \"msg\": \"Libellé must be a string\",\n                \"path\": \"libelle\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Read total size file",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response schema is valid\", function () {\r",
+											"  var schema = {\r",
+											"    type: \"object\",\r",
+											"    properties: {\r",
+											"      message: { type: \"string\" },\r",
+											"      data: {\r",
+											"        properties: {\r",
+											"          'total-size': { type: \"number\" },\r",
+											"          'max-size': { type: \"number\" }\r",
+											"        },\r",
+											"        required: [\"total-size\", \"max-size\"]\r",
+											"      },\r",
+											"      error: { type: [\"null\", \"string\"] }\r",
+											"\r",
+											"    },\r",
+											"    required: [\"message\", \"data\", \"error\"],\r",
+											"  };\r",
+											"\r",
+											"    pm.expect(pm.response.json()).to.have.jsonSchema(schema);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}api/file/size",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"file",
+										"size"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "SUCCESS",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}api/file/size",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"file",
+												"size"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 20:25:39 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "103"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"67-qfWvfTv2IeRMJemjBsbC1NWGhts\""
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "Content-Type, Authorization"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Request was successful\",\n    \"data\": {\n        \"total-size\": 223919512,\n        \"max-size\": 2147483648\n    },\n    \"error\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "Read",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Schema is valid\", function () {\r",
+											"  var schema = {\r",
+											"    type: \"object\",\r",
+											"    properties: {\r",
+											"      message: { type: \"string\" },\r",
+											"      data: {\r",
+											"        type: \"object\",\r",
+											"        properties: {\r",
+											"          id: { type: \"number\" },\r",
+											"          libelle: { type: \"string\" },\r",
+											"          description: { type: \"string\" },\r",
+											"          fileName: { type: \"string\" },\r",
+											"          originalFileName: { type: \"string\" },\r",
+											"          mimetype: { type: \"string\" },\r",
+											"          userId: { type: \"number\" },\r",
+											"          referenceId: { type: \"number\" },\r",
+											"          size: { type: \"number\" },\r",
+											"          createdAt: { type: \"string\" },\r",
+											"          updatedAt: { type: \"string\" },\r",
+											"          revokedAt: { type: [\"string\", \"null\"] }\r",
+											"        },\r",
+											"        required: [\"id\", \"libelle\", \"description\", \"fileName\", \"originalFileName\", \"mimetype\", \"userId\", \"referenceId\", \"size\", \"createdAt\", \"updatedAt\"]\r",
+											"      },\r",
+											"      error: { type: [\"string\", \"null\"] }\r",
+											"    },\r",
+											"    required: [\"data\"]\r",
+											"  };\r",
+											"\r",
+											"    pm.expect(pm.response.json()).to.have.jsonSchema(schema);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}api/file/17",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"file",
+										"17"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "SUCCESS",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}api/file/17",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"file",
+												"17"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 20:50:36 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "336"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"150-v4HXbcSQyEuPPho1RajX1PeHwPk\""
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "Content-Type, Authorization"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Request was successful\",\n    \"data\": {\n        \"id\": 17,\n        \"libelle\": \"Mon titre\",\n        \"description\": \"Ma description\",\n        \"fileName\": \"file\",\n        \"originalFileName\": \"progit.pdf\",\n        \"mimetype\": \"application/pdf\",\n        \"userId\": 1,\n        \"referenceId\": 1,\n        \"size\": 13171736,\n        \"createdAt\": \"2024-11-06T20:12:21.000Z\",\n        \"updatedAt\": \"2024-11-06T20:12:21.000Z\",\n        \"revokedAt\": null\n    },\n    \"error\": null\n}"
+								},
+								{
+									"name": "ERROR - READ_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}api/file/9999",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"file",
+												"9999"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 20:52:04 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "117"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"75-TBz3BTQmmIDJZNE5/mZdpO8euq0\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Invalid request\",\n    \"data\": null,\n    \"error\": {\n        \"message\": \"READ_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND\",\n        \"cause\": null\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Read list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}api/file",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"file"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "SUCCESS",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}api/file",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"file"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 21:38:02 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "4828"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"12dc-odQkkwQ8s+4lrx5BPmxG0SFzavY\""
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "Content-Type, Authorization"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Request was successful\",\n    \"data\": {\n        \"user\": [\n            {\n                \"id\": 3,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T19:58:09.000Z\",\n                \"updatedAt\": \"2024-11-06T19:58:09.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 4,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T19:58:17.000Z\",\n                \"updatedAt\": \"2024-11-06T19:58:17.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 5,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T19:58:44.000Z\",\n                \"updatedAt\": \"2024-11-06T19:58:44.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 6,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T19:58:51.000Z\",\n                \"updatedAt\": \"2024-11-06T19:58:51.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 7,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T19:58:55.000Z\",\n                \"updatedAt\": \"2024-11-06T19:58:55.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 8,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T19:59:40.000Z\",\n                \"updatedAt\": \"2024-11-06T19:59:40.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 9,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T19:59:50.000Z\",\n                \"updatedAt\": \"2024-11-06T19:59:50.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 10,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T20:00:51.000Z\",\n                \"updatedAt\": \"2024-11-06T20:00:51.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 11,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T20:02:04.000Z\",\n                \"updatedAt\": \"2024-11-06T20:02:04.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 12,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T20:02:23.000Z\",\n                \"updatedAt\": \"2024-11-06T20:02:23.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 13,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T20:02:59.000Z\",\n                \"updatedAt\": \"2024-11-06T20:02:59.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 14,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T20:03:11.000Z\",\n                \"updatedAt\": \"2024-11-06T20:03:11.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 15,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T20:03:18.000Z\",\n                \"updatedAt\": \"2024-11-06T20:03:18.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 16,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T20:03:29.000Z\",\n                \"updatedAt\": \"2024-11-06T20:03:29.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 17,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 1,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T20:12:21.000Z\",\n                \"updatedAt\": \"2024-11-06T20:12:21.000Z\",\n                \"revokedAt\": null\n            }\n        ],\n        \"other\": [\n            {\n                \"id\": 1,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 2,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T19:51:32.000Z\",\n                \"updatedAt\": \"2024-11-06T20:54:26.000Z\",\n                \"revokedAt\": null\n            },\n            {\n                \"id\": 2,\n                \"libelle\": \"Mon titre\",\n                \"description\": \"Ma description\",\n                \"fileName\": \"file\",\n                \"originalFileName\": \"progit.pdf\",\n                \"mimetype\": \"application/pdf\",\n                \"userId\": 2,\n                \"referenceId\": 1,\n                \"size\": 13171736,\n                \"createdAt\": \"2024-11-06T19:54:50.000Z\",\n                \"updatedAt\": \"2024-11-06T20:54:29.000Z\",\n                \"revokedAt\": null\n            }\n        ]\n    },\n    \"error\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"libelle\": \"Mon titre modifier\",\r\n    \"description\": \"Description modifier\",\r\n    \"fileName\": \"FileName modifier\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}api/file/17",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"file",
+										"17"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "SUCCESS",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"libelle\": \"Mon titre modifier\",\r\n    \"description\": \"Description modifier\",\r\n    \"fileName\": \"FileName modifier\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}api/file/17",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"file",
+												"17"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 21:43:27 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "364"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"16c-Q8EP71o44dwpftz+EEL/0a+QuEI\""
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "Content-Type, Authorization"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Request was successful\",\n    \"data\": {\n        \"id\": 17,\n        \"libelle\": \"Mon titre modifier\",\n        \"description\": \"Description modifier\",\n        \"fileName\": \"FileName modifier\",\n        \"originalFileName\": \"progit.pdf\",\n        \"mimetype\": \"application/pdf\",\n        \"userId\": 1,\n        \"referenceId\": 1,\n        \"size\": 13171736,\n        \"createdAt\": \"2024-11-06T20:12:21.000Z\",\n        \"updatedAt\": \"2024-11-06T21:43:27.000Z\",\n        \"revokedAt\": null\n    },\n    \"error\": null\n}"
+								},
+								{
+									"name": "ERROR - Wrong libelle & filename",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"libelle\": \"M\",\r\n    \"fileName\" : \"e\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}api/file/17",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"file",
+												"17"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 21:52:10 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "269"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"10d-MwBtLad4KesLqq9684Op/yePRZc\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Invalid request\",\n    \"data\": null,\n    \"error\": {\n        \"errors\": [\n            {\n                \"type\": \"field\",\n                \"value\": \"M\",\n                \"msg\": \"Libellé required 2 caracteres\",\n                \"path\": \"libelle\",\n                \"location\": \"body\"\n            },\n            {\n                \"type\": \"field\",\n                \"value\": \"e\",\n                \"msg\": \"FileName required 2 caracteres\",\n                \"path\": \"fileName\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+								},
+								{
+									"name": "ERROR - NO_FIELDS_TO_UPDATE",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}api/file/17",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"file",
+												"17"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 21:47:51 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "423"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1a7-gYLPjERxz1915Rwm2RsmUwhZk9M\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"General server error\",\n    \"data\": null,\n    \"error\": {\n        \"message\": \"UPDATE_FILE_REPOSITORY_FAIL\",\n        \"cause\": {\n            \"message\": \"NO_FIELDS_TO_UPDATE\",\n            \"stack\": \"Error: NO_FIELDS_TO_UPDATE\\n    at FileRepository.updateFile (/var/www/src/repositories/FileRepository.ts:297:39)\\n    at execute (/var/www/src/controllers/file/UpdateFile.ts:61:79)\\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\",\n            \"innerCause\": null\n        }\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}api/file/15",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"file",
+										"15"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "ERROR - DELETE_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}api/file/15",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"file",
+												"15"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 22:00:42 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "110"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"6e-UgnUbeSce0ThUgfw9ROnV3roZ90\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Resource not found.\",\n    \"data\": null,\n    \"error\": {\n        \"message\": \"DELETE_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND\"\n    }\n}"
+								},
+								{
+									"name": "SUCCESS",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}api/file/14",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"file",
+												"14"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 22:02:21 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "61"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"3d-oMNsFzVIFxwYJna/SBfqN1XcNFw\""
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "Content-Type, Authorization"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Request was successful\",\n    \"data\": true,\n    \"error\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete hard",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost/api/file/3/hard",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"file",
+										"3",
+										"hard"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "SUCCESS",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://localhost/api/file/3/hard",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"path": [
+												"api",
+												"file",
+												"3",
+												"hard"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 22:07:07 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "61"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"3d-oMNsFzVIFxwYJna/SBfqN1XcNFw\""
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "Content-Type, Authorization"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Request was successful\",\n    \"data\": true,\n    \"error\": null\n}"
+								},
+								{
+									"name": "ERROR - DELETE_FILE_REPOSITORY_FAIL",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://localhost/api/file/17/hard",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"path": [
+												"api",
+												"file",
+												"17",
+												"hard"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 22:07:50 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "785"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"311-skgQ87m2jajoA6/rGgm7coszgqE\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"General server error\",\n    \"data\": null,\n    \"error\": {\n        \"message\": \"DELETE_FILE_REPOSITORY_FAIL\",\n        \"cause\": {\n            \"message\": \"Cannot delete or update a parent row: a foreign key constraint fails (`app`.`link`, CONSTRAINT `link_ibfk_2` FOREIGN KEY (`file_id`) REFERENCES `file` (`id`))\",\n            \"stack\": \"Error: Cannot delete or update a parent row: a foreign key constraint fails (`app`.`link`, CONSTRAINT `link_ibfk_2` FOREIGN KEY (`file_id`) REFERENCES `file` (`id`))\\n    at PromiseConnection.query (/var/www/node_modules/mysql2/promise.js:94:22)\\n    at FileRepository.deleteFile (/var/www/src/repositories/FileRepository.ts:339:37)\\n    at execute (/var/www/src/controllers/file/DeleteHardFile.ts:70:69)\\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\",\n            \"innerCause\": null\n        }\n    }\n}"
+								},
+								{
+									"name": "ERROR - DELETE_HARD_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://localhost/api/file/19/hard",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"path": [
+												"api",
+												"file",
+												"19",
+												"hard"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 06 Nov 2024 22:11:47 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "115"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"73-SH3tlG6Lz7hOcC2sKLlpyfZdZ9A\""
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Resource not found.\",\n    \"data\": null,\n    \"error\": {\n        \"message\": \"DELETE_HARD_FILE_CONTROLLER_FAIL_FILE_NOT_FOUND\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Dowload",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}api/file/1/download",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"file",
+										"1",
+										"download"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{Token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Link",
+					"item": [
+						{
+							"name": "Create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Stores the linkId in an environment or global variable\r",
+											"var url = pm.response.json().data.url;\r",
+											"pm.collectionVariables.set(\"Url-download\", url);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"file_id\" : 12\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}api/link",
+									"host": [
+										"{{base_url}}api"
+									],
+									"path": [
+										"link"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "SUCCESS",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"file_id\" : 12\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}api/link",
+											"host": [
+												"{{base_url}}api"
+											],
+											"path": [
+												"link"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "nginx/1.27.2"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 07 Nov 2024 00:19:39 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "424"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1a8-6xAKTQpC3bW6qjF9fCl8QYPae6M\""
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "Content-Type, Authorization"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Resource successfully created\",\n    \"data\": {\n        \"link\": {\n            \"id\": 13,\n            \"userId\": 24,\n            \"fileId\": 12,\n            \"createdAt\": \"2024-11-07T00:19:39.000Z\",\n            \"updatedAt\": \"2024-11-07T00:19:39.000Z\",\n            \"revokedAt\": \"2024-11-08T00:19:39.000Z\"\n        },\n        \"url\": \"https://localhost/api/download?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsaW5rIjoxMywiZmlsZSI6MTIsImlhdCI6MTczMDkzODc3OSwiZXhwIjoxNzMxMDI1MTc5fQ.9rU_AqsJkTQ6LVwjWmJ0uO6C3iNozonmDpHyaWZe6Y0\"\n    },\n    \"error\": null\n}"
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{Token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Download file with link",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Url-download}}",
+									"host": [
+										"{{Url-download}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Doc",
+			"item": [
+				{
+					"name": "Documentation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/doc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"doc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Documentation API",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/doc/api",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"doc",
+								"api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change  Log",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/doc/news",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"doc",
+								"news"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://localhost/"
+		},
+		{
+			"key": "Admin-login",
+			"value": "Roger",
+			"type": "string"
+		},
+		{
+			"key": "Admin-password",
+			"value": "123",
+			"type": "string"
+		},
+		{
+			"key": "User-login",
+			"value": "Jean",
+			"type": "string"
+		},
+		{
+			"key": "User-password",
+			"value": "123",
+			"type": "string"
+		},
+		{
+			"key": "Token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Url-download",
+			"value": ""
+		}
+	]
+}
