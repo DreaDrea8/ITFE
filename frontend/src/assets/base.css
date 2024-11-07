@@ -1,0 +1,68 @@
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary-dark);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-track-piece {
+  background: none;
+}
+
+::-webkit-scrollbar-corner {
+  background: none;
+}
+
+/* Common */
+
+body{
+  line-height: 1.5;
+  font-family: var(--font-family-body);
+  color: var(--color-light);
+  background-color: var(--color-dark);
+}
+
+.footer, .header, .signin {
+  max-width: 2000px;
+  width: 90%;
+  margin: auto
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-title);
+}
+
+/* Texte */
+h1 {
+ font-size: var(--font-size-h1);
+ line-height: var(--line-height-h1);
+ font-weight: 700;
+ letter-spacing: var(--letter-spacing-wide);
+}
+
+h2 {
+ font-size: var(--font-size-h2);
+ line-height: var(--line-height-h2);
+ font-weight: 700;
+ padding-bottom: var(--padding-l);
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+  font-weight: 700;
+  padding-bottom: var(--padding-m);
+}
+
+p, button, input{
+ font-size: var(--font-size-body);
+ line-height: var(--line-height-body);
+}
+

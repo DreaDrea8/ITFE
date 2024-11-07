@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  padding: 0.5rem 0 0.75rem 0;
+  position: relative;
+}
+
+.header::after{
+  position: absolute;
+  content: ''; 
+  height: 1px; 
+  width: 90%; 
+  bottom: 0;
+  left: 0;
+  background-color:  rgba(240, 240, 240, 0.5);
+  transform: translateX(calc(10% / 2));
+}
+
+.header__logo h1 {
+  margin: 0; /* Enlever la marge par défaut */
+  font-size: 2rem;
+}
+
+.header__nav {
+  max-width: 70%;
+}
+
+.header__nav ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+}
+

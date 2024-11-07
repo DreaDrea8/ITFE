@@ -83,10 +83,12 @@ export class CreateLink {
         file: file.id
       }
       const token: string = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION })
-      const url: string = `${API_PROTOCOL}://${API_HOST}/api/download?token=${encodeURIComponent(token)}`
+      const urlApi: string = `${API_PROTOCOL}://${API_HOST}/api/download?token=${encodeURIComponent(token)}`
+      const url: string = `${API_PROTOCOL}://${API_HOST}/download?token=${encodeURIComponent(token)}`
       const data = {
         link: link, 
-        url: url
+        url: url,
+        dowloadUrl: urlApi
       }
 
       const result:jsonContent = {
