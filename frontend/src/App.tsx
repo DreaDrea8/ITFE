@@ -60,6 +60,21 @@ const router = createBrowserRouter([
 			}
 		],
 		errorElement: <ErrorPage />
+	},
+	{
+		path: 'file',
+		element: <BasicLayout />,
+		children: [
+			{
+				path: '',
+				element: (
+					<PrivateRoute>
+						<HomeComponent/><DownloadComponent/>
+					</PrivateRoute>
+				)
+			}
+		],
+		errorElement: <ErrorPage />
 	}
 ])
 

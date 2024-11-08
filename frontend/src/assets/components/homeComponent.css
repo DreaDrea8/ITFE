@@ -1,0 +1,46 @@
+.home{
+  margin: 2rem auto 4rem; 
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.home > div{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.home .context-user{
+  flex-direction: row;
+  align-items: center;
+}
+
+.home div .add-file{
+  margin: 1rem; 
+  width: 300px;
+  font-size: 1.2rem;
+}
+
+.home div .add-file svg{
+  height: 30px;
+}
+
+.display-files{
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.user-file > div {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.other-file > div{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}

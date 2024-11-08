@@ -1,0 +1,37 @@
+.file{
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 2rem 2rem 2.5rem 2rem; 
+  border-radius: 40px;
+  background-color: rgba(240, 240, 240, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 1.5rem;
+}
+
+
+
+
+.file .file-action{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap ;
+  gap: 0.5rem
+}
+
+.file button {
+  height: 40px;
+  width: 40px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+}
+
+.file button.button-error{
+  margin: 0 0 0 auto;
+
+}

@@ -29,7 +29,7 @@ body{
   background-color: var(--color-dark);
 }
 
-.footer, .header, .signin {
+.footer, .header, .signin, .home {
   max-width: 2000px;
   width: 90%;
   margin: auto

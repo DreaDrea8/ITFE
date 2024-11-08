@@ -29,13 +29,12 @@
   max-width: 70%;
 }
 
-.header__nav ul {
+.header__nav{
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-
 }
 

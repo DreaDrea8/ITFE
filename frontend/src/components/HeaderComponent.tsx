@@ -8,46 +8,37 @@ const HeaderComponent: React.FC = () => {
 	const appContext = useContext(AppContext)
 	const isConnect = appContext?.verifyToken()
 
+  const handleLogout = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault()
+    appContext?.deleteToken()
+    window.location.pathname = '/'
+  }
+
   const generateNavElements = (route: string) => {
-    if (route === '/' && isConnect) {
+    if (['', '/', '/download'].includes(route) && isConnect){
       return (
         <>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/download">Download</Link></li>
+          <Link to="/">Home</Link>
+          <Link to="/download">Download</Link>
+          <button className="button-outline-primary" onClick={handleLogout}>Déconnexion</button>
         </>
       );
     }
-    if ((route === '/' && !isConnect) || route === '/download') {
+    if (['', '/', '/download'].includes(route) && !isConnect ) {
       return (
         <>
-          <li>
-            <button className="button-outline-primary">
-              <Link to="/auth/signup">Inscription</Link>
-            </button>
-          </li>
-          <li>
-            <button>
-              <Link to="/auth/signin" className="button">Connexion</Link>
-            </button>
-          </li>
+          <Link to="/auth/signup" className="button-outline-primary">Inscription</Link>
+          <Link to="/auth/signin" className="button-primary">Connexion</Link>
         </>
       );
     }
     if (route.startsWith('/auth')) {
       return (
         <>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/download">Download</Link></li>
-          <li>
-            <button className="button-outline-primary">
-              <Link to="/auth/signup">Inscription</Link>
-            </button>
-          </li>
-          <li>
-            <button>
-              <Link to="/auth/signin" className="button">Connexion</Link>
-            </button>
-          </li>
+          <Link to="/">Home</Link>
+          <Link to="/download">Download</Link>
+          <Link to="/auth/signup" className="button-outline-primary">Inscription</Link>
+          <Link to="/auth/signin" className="button-primary">Connexion</Link>
         </>
       );
     }
@@ -60,9 +51,7 @@ const HeaderComponent: React.FC = () => {
         <h1>ITFE</h1>
       </div>
       <nav className="header__nav">
-        <ul>
-          {generateNavElements(route)}
-        </ul>
+        {generateNavElements(route)}
       </nav>
     </header>
   );

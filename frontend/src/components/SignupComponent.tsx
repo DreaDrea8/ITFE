@@ -1,26 +1,29 @@
 import { Link } from 'react-router-dom';
 import './../assets/components/signupComponent.css'
+import { useAppContext } from '../AppContext';
 
 const SignupComponent: React.FC = () => {
+  const appContext = useAppContext();
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation() 
-    console.log(event.target)
+  const handleSubmit = async (event:  React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault() 
 
     try {
-      const response = await fetch(`https://localhost/api/user`, {
+      const response = await fetch(`/api/user`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          login: "Janne1",
-          password: "dark"
+          login: event.currentTarget.login.value,
+          password: event.currentTarget.password.value
         })
       });
       const result = await response.json();
-
-      console.log(result)
+      appContext.updateApp({token: result.data.token})
+  
+      window.location.pathname = '/'
+      return
     } catch (error) {
       console.error("Erreur lors du partage de fichier :", error);
     }
@@ -30,11 +33,11 @@ const SignupComponent: React.FC = () => {
   return (
     <div className="signup">
       <h1>Créer votre compte</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="login" className="interact-field">
             <fieldset>
-              <input type="text" placeholder="Identifiant" id="login" autoComplete="off" minLength={2} required pattern="[A-Za-z0-9]+"/>
+              <input type="text" placeholder="Identifiant" name="login" id="login" autoComplete="off" minLength={2} required pattern="[A-Za-z0-9]+"/>
               <legend>Identifiant</legend>
             </fieldset>
           </label>
@@ -53,7 +56,7 @@ const SignupComponent: React.FC = () => {
         <div>
           <label htmlFor="password" className="interact-field">
             <fieldset>
-              <input type="password" placeholder="Mot de passe" id="password" autoComplete="off" minLength={2} required pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" />
+              <input type="password" placeholder="Mot de passe" name="password" id="password" autoComplete="off" minLength={2} required pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" />
               <legend>Mot de passe</legend>
             </fieldset>
           </label> 
@@ -79,7 +82,7 @@ const SignupComponent: React.FC = () => {
           <div style={{width: '30px'}}></div>
         </div>
 
-        <button type="submit" onClick={handleSubmit}>Valider</button>
+        <button type="submit">Valider</button>
       </form>
       <p>Déjà un compte ? <Link to="/auth/signin"> Page de connexion</Link></p>
     </div>

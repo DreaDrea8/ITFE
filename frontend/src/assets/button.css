@@ -163,6 +163,31 @@ input:focus ~ .button-outline-primary{
   outline: 0;
 }
 
+button,
+.button-secondary {
+ padding: var(--padding-xs) var(--padding-l);
+ border-radius: var(--border-radius-medium);
+ background-color: var(--color-secondary);
+ color: var(--color-light);
+ border: 2px solid transparent;
+ transition: all 0.5s ease-in-out;
+}
+
+button:hover,
+.button-secondary:hover {
+  background: var(--color-secondary-dark);
+}
+
+button:focus,
+.button-secondary:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 6px var(--color-secondary);
+}
+
+button:focus-visible, 
+.button-secondary:focus-visible {
+  outline: 0;
+}
 
 .button-outline-secondary {
   height: calc(var(--button-height) + var(--line-height-body) *  var(--font-size-body) / 2 + 0.8px);
@@ -186,6 +211,32 @@ input:focus ~ .button-outline-secondary{
 }
 
 .button-outline-secondary:focus-visible {
+  outline: 0;
+}
+
+button,
+.button-success {
+ padding: var(--padding-xs) var(--padding-l);
+ border-radius: var(--border-radius-medium);
+ background-color: var(--color-success);
+ color: var(--color-light);
+ border: 2px solid transparent;
+ transition: all 0.5s ease-in-out;
+}
+
+button:hover,
+.button-success:hover {
+  background: var(--color-success-dark);
+}
+
+button:focus,
+.button-success:focus {
+  border-color: var(--color-success);
+  box-shadow: 0 0 6px var(--color-success);
+}
+
+button:focus-visible, 
+.button-success:focus-visible {
   outline: 0;
 }
 

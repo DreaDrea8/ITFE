@@ -1,16 +1,43 @@
 import { Link } from 'react-router-dom';
 import './../assets/components/signinComponent.css'
+import { useAppContext } from '../AppContext';
 
 const SigninComponent: React.FC = () => {
+  const appContext = useAppContext();
+
+
+  const handleSubmit = async (event:  React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault() 
+
+    try {
+      const response = await fetch(`/api/auth`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          login: event.currentTarget.login.value,
+          password: event.currentTarget.password.value
+        })
+      });
+      const result = await response.json();
+      appContext.updateApp({token: result.data.token})
+  
+      window.location.pathname = '/'
+      return
+    } catch (error) {
+      console.error("Erreur lors du partage de fichier :", error);
+    }
+  }
   
   return (
     <div className="signin">
       <h1>Connexion</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="login" className="interact-field">
             <fieldset>
-              <input type="text" placeholder="Identifiant" id="login" autoComplete="off" minLength={2} required pattern="[A-Za-z0-9]+"/>
+              <input type="text" placeholder="Identifiant" name="login" id="login" autoComplete="off" minLength={2} required pattern="[A-Za-z0-9]+"/>
               <legend>Identifiant</legend>
             </fieldset>
           </label>
@@ -29,14 +56,14 @@ const SigninComponent: React.FC = () => {
         <div>
           <label htmlFor="password" className="interact-field">
             <fieldset>
-              <input type="password" placeholder="Mot de passe" id="password" autoComplete="off" minLength={2} required />
+              <input type="password" placeholder="Mot de passe" name="password" id="password" autoComplete="off" minLength={2} required />
               <legend>Mot de passe</legend>
             </fieldset>
           </label>
           <div style={{width: '30px'}}></div>
         </div>
 
-        <button>Valider</button>
+        <button type="submit">Valider</button>
       </form>
       <p>Pas encore de compte ? <Link to="/auth/signup"> Page d'Inscription</Link></p>
     </div>

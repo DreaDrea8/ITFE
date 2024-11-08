@@ -1,6 +1,6 @@
-import { FC, ReactNode, useContext } from 'react';
+import { FC, ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
-import { AppContext } from './AppContext';
+import { useAppContext } from './AppContext';
 
 interface PrivateRouteProps {
   children: ReactNode[];
@@ -11,7 +11,7 @@ const PrivateRoute: FC<PrivateRouteProps> = ({ children }) => {
     return <Navigate to="/auth/signin" />;
   }
 
-  const appContext = useContext(AppContext);
+  const appContext = useAppContext();
   if (!appContext && children[1]) {
     return <>{children[1]}</>
   }

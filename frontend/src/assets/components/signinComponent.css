@@ -43,7 +43,7 @@
   width: 100%;
 }
 
-.signin form button{
+.signin form button, .signin form > input{
   align-self: center;
   width: 30%;
   margin-top: 1.5rem;
