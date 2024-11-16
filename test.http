@@ -11,6 +11,12 @@ GET https://localhost/api/*
 Content-Type: application/json
 
 ###
+GET https://localhost/api/file/2/download
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMTI0ODA0NSwiZXhwIjoxNzMxMjYyNDQ1fQ.ByeQGbl9tCShw87gw_pZd1e_mXCi78J8Y3cQV2CgLpc
+
+
+###
 # Responses
 404 Not Found
 {

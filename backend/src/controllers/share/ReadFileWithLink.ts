@@ -13,7 +13,7 @@ import { jsonContent } from "@src/types/jsonContent"
 import { Repository } from "@src/repositories/Repository"
 
 
-export class DownloadFileWithLink {
+export class ReadFileWithLink {
   service: Service
   repository: Repository
 
@@ -57,7 +57,7 @@ export class DownloadFileWithLink {
           const result: jsonContent = {
             message: 'Invalid request',
             data: null,
-            error: this.service.formatError(error, ERRORS.DOWNLOAD_FILE_WITH_LINK_CONTROLLER_FAIL_TOKEN_EXPIRED)
+            error: this.service.formatError(error, ERRORS.SHARE_FILE_WITH_LINK_CONTROLLER_FAIL_TOKEN_EXPIRED)
           }
           res.status(401).json(result)
           return
@@ -65,7 +65,7 @@ export class DownloadFileWithLink {
         const result: jsonContent = {
           message: 'Access denied',
           data: null,
-          error: this.service.formatError(error, ERRORS.DOWNLOAD_FILE_WITH_LINK_CONTROLLER_FAIL_INVALID_TOKEN)
+          error: this.service.formatError(error, ERRORS.SHARE_FILE_WITH_LINK_CONTROLLER_FAIL_INVALID_TOKEN)
         }
         res.status(403).json(result)
         return
@@ -76,7 +76,7 @@ export class DownloadFileWithLink {
         const result: jsonContent = {
           message: 'Resource not found.',
           data: null,
-          error:{ message: ERRORS.DOWNLOAD_FILE_WITH_LINK_CONTROLLER_FAIL_LINK_NOT_FOUND }
+          error:{ message: ERRORS.SHARE_FILE_WITH_LINK_CONTROLLER_FAIL_LINK_NOT_FOUND }
         }
         res.status(404).json(result)
         return
@@ -85,7 +85,7 @@ export class DownloadFileWithLink {
         const result: jsonContent = {
           message: 'Access denied',
           data: null,
-          error:{ message: ERRORS.DOWNLOAD_FILE_WITH_LINK_CONTROLLER_FAIL_LINK_EXPIRED }
+          error:{ message: ERRORS.SHARE_FILE_WITH_LINK_CONTROLLER_FAIL_LINK_EXPIRED }
         }
         res.status(403).json(result)
         return
@@ -96,45 +96,25 @@ export class DownloadFileWithLink {
         const result: jsonContent = {
           message: 'Resource not found.',
           data: null,
-          error:{ message: ERRORS.DOWNLOAD_FILE_WITH_LINK_CONTROLLER_FAIL_FILE_NOT_FOUND }
+          error:{ message: ERRORS.SHARE_FILE_WITH_LINK_CONTROLLER_FAIL_FILE_NOT_FOUND }
         }
         res.status(404).json(result)
         return
       }
 
-      const referenceId: string = file.referenceId.toString()
-      const filePath = await this.service.fileSystemService.uploadFile('', 'files', referenceId)
-      if(!filePath || filePath === '')  throw new Error(ERRORS.DOWNLOAD_FILE_WITH_LINK_CONTROLLER_FAIL_FILE_NOT_FOUND)
-
-      const extension = mime.extension(file.mimetype)
-
-      const fileName = encodeURIComponent(extension ? (file.fileName + '.' + extension) : file.originalFileName)
-      res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`)
-      res.setHeader('Content-Type', file.mimetype)
-      
-      const fileStream = fs.createReadStream(filePath)
-
-      fileStream.on('error', (error) => {
-        this.service.loggerService.error(ERRORS.DOWNLOAD_FILE_WITH_LINK_CONTROLLER_FAIL)
-        res.setHeader('Content-Type', 'application/json')
-        const result: jsonContent = {
-          message: "General server error",
-          data: file,
-          error: this.service.formatError(error, ERRORS.DOWNLOAD_FILE_WITH_LINK_CONTROLLER_FAIL)
-        }
-        res.status(500).json(result)
-        return
-      })
-      
-      fileStream.pipe(res)
-
+      const result:jsonContent = {
+        message: 'Request was successful',
+        data: file, 
+        error: null
+      }
+      res.status(200).json(result)
     } catch (error: any) {
-      this.service.loggerService.error(ERRORS.DOWNLOAD_FILE_WITH_LINK_CONTROLLER_FAIL)
+      this.service.loggerService.error(ERRORS.SHARE_FILE_WITH_LINK_CONTROLLER_FAIL)
       res.setHeader('Content-Type', 'application/json')
       const result: jsonContent = {
         message: "General server error",
         data: null,
-        error: this.service.formatError(error, ERRORS.DOWNLOAD_FILE_WITH_LINK_CONTROLLER_FAIL)
+        error: this.service.formatError(error, ERRORS.SHARE_FILE_WITH_LINK_CONTROLLER_FAIL)
       }
       res.status(500).json(result)
     }

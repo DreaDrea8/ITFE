@@ -9,10 +9,10 @@ import { Service } from "@src/services/service"
 import { Reference } from "@src/entities/Reference"
 import { jsonContent } from "@src/types/jsonContent"
 import { User, userRoleEnum } from "@src/entities/User"
-import { Repository } from "@src/repositories/Repository"
 import { selectFileDtoInterface } from '@src/repositories/FileRepository'
-import { insertLinkDtoInterface } from "@src/repositories/LinkRepository"
+import { insertLinkDtoInterface, selectLinkListWhereDtoInterface, updateRevokedAtLinkDtoInterface } from "@src/repositories/LinkRepository"
 import { API_HOST, API_PROTOCOL, API_SHARE_URL_LIVE_TIME, JWT_EXPIRATION, JWT_SECRET } from "@src/commons/config"
+import { comparisonOperatorEnum, linkKeyEnum, logicalOperatorEnum, Repository, whereInterface } from "@src/repositories/Repository"
 
 
 export class CreateLink {
@@ -44,10 +44,8 @@ export class CreateLink {
 
       const fileId: number = Number(req.body.file_id)
       let getFileDto: selectFileDtoInterface = {id: Number(fileId), userId: curentUser.id}
-      if(curentUser.role === userRoleEnum.ADMINISTRATOR){
-        getFileDto = {id: Number(req.params.file_id)}
-      }
       const file: File|null = await this.repository.fileRepository.selectFile(getFileDto)
+
       if(!file){
         const result: jsonContent = {
           message: 'Invalid request',
@@ -57,6 +55,7 @@ export class CreateLink {
         res.status(404).json(result)
         return
       }
+      
       const references: Reference|null = await this.repository.referenceRepository.selectReference({id: file.referenceId})
       if(!references){
         const result: jsonContent = {
@@ -68,14 +67,44 @@ export class CreateLink {
         return
       }
 
-      const defaultExpiration_date = new Date(new Date().getTime() + API_SHARE_URL_LIVE_TIME)  
+      const filterByUserId: whereInterface =  {
+        logicalOperator: logicalOperatorEnum.AND,
+        key: linkKeyEnum.USER_ID,
+        comparisonOperator: comparisonOperatorEnum.EQUALS,
+        value: `${curentUser.id}`
+      }
+      const filterByFileId: whereInterface =  {
+        logicalOperator: logicalOperatorEnum.AND,
+        key: linkKeyEnum.FILE_ID,
+        comparisonOperator: comparisonOperatorEnum.EQUALS,
+        value: `${fileId}`
+      }
+      const dto: selectLinkListWhereDtoInterface = {
+        where: [filterByUserId, filterByFileId]
+      }
 
+      const linkListResult: Link[] = await this.repository.linkRepository.selectLinkListWhere(dto)
+      
+      if(linkListResult.length > 0){
+        linkListResult.forEach( async (link)=>{
+          const linkDto: updateRevokedAtLinkDtoInterface = {
+            id: link.id
+          }
+          const linkresult = await this.repository.linkRepository.updateRevokedAtLink(linkDto)
+          if(!linkresult){
+            throw new Error(ERRORS.CREATE_LINK_CONTROLLER_FAIL)
+          }
+        })
+      }
+      
+      const defaultExpiration_date = new Date(new Date().getTime() + API_SHARE_URL_LIVE_TIME)  
+      
       const addLinkDto : insertLinkDtoInterface = {
         userId: curentUser.id,
         fileId: fileId,
         revokedAt: req.body.expiration_date? new Date(req.body.expiration_date): defaultExpiration_date
       }
-
+      
       const link: Link = await this.repository.linkRepository.insertLink(addLinkDto)
 
       const payload = { 
@@ -83,10 +112,13 @@ export class CreateLink {
         file: file.id
       }
       const token: string = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION })
-      const url: string = `${API_PROTOCOL}://${API_HOST}/api/download?token=${encodeURIComponent(token)}`
+      const urlApi: string = `${API_PROTOCOL}://${API_HOST}/api/share?token=${encodeURIComponent(token)}`
+      const url: string = `${API_PROTOCOL}://${API_HOST}/share?token=${encodeURIComponent(token)}`
+
       const data = {
         link: link, 
-        url: url
+        url: url,
+        dowloadUrl: urlApi
       }
 
       const result:jsonContent = {
