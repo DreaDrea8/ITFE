@@ -111,9 +111,18 @@ Afin de répondre à l'exercice, on a continuer à push du code sur github
 
 ## Instalation
 
-Configurer les variables d'environnments
+### Configurer les variables d'environnments
 
 Il y a un fichier .env à la racine du projet qu'il faut dupliquer dans le dossier backend et frontend
+
+En terme de sécuriter c'est null, mais vu que le projet tourne que en local pour ce simplifier on a tous laisser
+Si on devait ajouter des variables privée, on aurait fait un fichier .env.local qui ne serait pas tracker par git
+
+### Dosiser files et tmp 
+
+Dans le dossier backend ajouter les deux dossier suivant: 
+- files, /backend/files => ce dossier contient l'ensemble des fichier enregistrer dans le services
+- tmp, /backend/tmp => ce dossier stock temporarirement les fichiers avant de les déplacer vers files
 
 
 #### Makefile 
