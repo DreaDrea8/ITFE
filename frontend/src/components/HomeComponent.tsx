@@ -1,11 +1,12 @@
 import { ChangeEvent, DragEvent, useEffect, useState } from 'react'
 
-import './../assets/components/homeComponent.css'
-
 import ModalComponent from './ModalComponent'
 import { useAppContext } from '../AppContext'
 import { useModalContext } from '../ModalContext'
 import FileComponent, { buttonInterface, fileInterface } from './FileComponent' 
+
+import './../assets/components/homeComponent.css'
+import './../assets/components/fileCreate.css'
 
 
 export type FileType = { 
