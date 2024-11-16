@@ -76,7 +76,7 @@ export enum linkKeyEnum {
 
 export interface whereInterface {
   logicalOperator: logicalOperatorEnum
-  key: referenceKeyEnum | fileKeyEnum
+  key: referenceKeyEnum | fileKeyEnum | linkKeyEnum
   comparisonOperator: comparisonOperatorEnum
   value: string
 }

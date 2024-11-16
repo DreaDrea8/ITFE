@@ -1,0 +1,116 @@
+/* Variables */
+:root {
+  /* Primary */
+  --color-primary: rgba(56, 149, 211, 1);
+  --color-primary-dark: rgba(34, 105, 148, 1);
+  --color-primary-light: rgba(89, 182, 240, 1);
+
+  /* Secondary */
+  --color-secondary: rgba(187, 187, 187, 1);
+  --color-secondary-dark: rgba(100, 100, 100, 1);
+  --color-secondary-xdark: rgb(60, 60, 60);
+  --color-secondary-light: rgba(220, 220, 220, 1);
+
+  /* Success */
+  --color-success: rgba(34, 197, 94, 1);
+  --color-success-dark: rgba(24, 144, 72, 1);
+  --color-success-light: rgba(72, 224, 140, 1);
+
+  /* Warning */
+  --color-warning: hsl(30, 66%, 47%);
+  --color-warning-dark: hsl(30, 77%, 36%);
+  --color-warning-light: hsl(34, 100%, 63%);
+
+  /* Error */
+  --color-error: rgba(229, 57, 53, 1);
+  --color-error-dark: rgba(183, 28, 28, 1);
+  --color-error-light: rgba(244, 107, 104, 1);
+
+  /* Dark */
+  --color-dark: rgb(47, 47, 47);
+
+  /* Light */
+  --color-light: rgb(240, 240, 240);
+  --color-light-dark: rgba(200, 200, 200, 1);
+
+  /* Font family  */
+  --font-family-title: 'Montserrat', sans-serif;
+  --font-family-body: 'Roboto', sans-serif;
+
+  /* Font size */
+  --font-size-h1: 2.5rem;
+  --font-size-h2: 2rem;
+  --font-size-h3: 1.75rem;
+  --font-size-h4: 1.5rem;
+  --font-size-body: 1rem;
+  --font-size-small: 0.8rem;
+  --font-size-h1-mobile: 2rem;
+  --font-size-h2-mobile: 1.75rem;
+  --font-size-h3-mobile: 1.5rem;
+  --font-size-h4-mobile: 1.25rem;
+  --font-size-body-mobile: 0.9rem;
+  --font-size-small-mobile: 0.7rem;
+
+  /* Line height */
+  --line-height-h1: 1.2;
+  --line-height-h2: 1.3;
+  --line-height-h3: 1.4;
+  --line-height-h4: 1.5;
+  --line-height-body: 1.6;
+  --line-height-small: 1.5;
+
+
+  /* Letter spacing */
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
+  --letter-spacing-wider: 0.1em;
+
+  /* Icones */
+  --icon-size-small: 16px;
+  --icon-size-medium: 24px;
+  --icon-size-large: 32px;
+
+  /* Padding */
+  --padding-xxs: 0.25rem;
+  --padding-xs: 0.5rem;
+  --padding-s: 0.75rem;
+  --padding-m: 1rem;
+  --padding-l: 1.25rem;
+  --padding-xl: 1.5rem;
+
+  /* Margin */
+  --margin-xs: 0.5rem;
+  --margin-s: 0.75rem;
+  --margin-m: 1rem;
+  --margin-l: 1.25rem;
+  --margin-xl: 1.5rem;
+
+  /* Border */
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 4px;
+  --border-color-default: rgba(187, 187, 187, 1);
+
+  /* Border radius */
+  --border-radius-small: 4px;
+  --border-radius-medium: 16px;
+  --border-radius-large: 32px;
+  --border-radius-infinit: 999999px;
+
+  /* Size */
+  --size-mobile: 400px;
+  --size-tablet: 800px;
+  --size-laptop: 1000px;
+  --size-desktop: 1400px;
+
+  /* Shadow */
+  --shadow-dark : 0 2px 10px rgba(0, 0, 0, 0.5);
+
+  /* Button sizes */
+  --button-height: calc( var(--line-height-body) * var(--font-size-body) + var(--padding-s) * 2 + 2 * 1.6px);
+
+  --gap-s: 0.75rem;
+  --gap-m: 1rem;
+  --gap-xxl: 2rem;
+
+}

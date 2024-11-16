@@ -1,0 +1,200 @@
+.file__create{
+  max-width: 2000px;
+  min-width: 500px;
+  width: 100%;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  gap: 0.5rem;
+  color: black;
+}
+
+.file__create input[type="text"], .file__create input[type="text"]::placeholder , .file__create legend{
+  color: black;
+}
+
+.file__create form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.file__create > p a{
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+.file__create form > div{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0.25rem;
+}
+
+.file__create form div label{
+  width: 100%;
+}
+
+.file__create form div label[for="description"]{
+  margin-right: calc(30px + 0.25rem);
+}
+
+.file__create form button, .file__create form > input{
+  align-self: center;
+  width: 30%;
+  margin-top: 1rem;
+}
+
+.file__create form div div{
+  display: flex;
+  flex-direction: column;
+  align-items:end;
+  position: relative;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+
+.file__create form .actions{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: end;
+}
+
+.file__create form .actions button{
+width: auto;
+}
+
+.file__create form .actions button.cancel{
+margin-right: auto;
+}
+
+
+.file__create form div div button{
+  height: 30px;
+  padding: 0;
+  width: 30px;
+  margin: 0 0 auto 0; 
+  border-radius: 9999px;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content:center;
+}
+
+.info-tooltip{
+  position: absolute !important;
+  display: none !important;
+  bottom: 90%;
+  left: 120%;
+  z-index: 1;
+  width: 300px;
+  padding: 1rem; 
+  border-radius: 10px;
+  background-color: hsl(0, 0%, 15%);
+
+}
+
+.btn-tooltip:hover ~ .info-tooltip, .btn-tooltip:focus ~ .info-tooltip{
+  display: block !important;
+}
+
+
+.file__create-confirm > p{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.file__create-confirm p .info-name{
+  font-style: italic;
+}
+
+.file__create form .addFile{
+  flex-direction: column;
+  padding-right: calc(30px + 0.25rem);
+  gap: 0.25rem
+}
+
+label[for="file"] svg {
+  fill:var(--color-primary-dark);
+  height: 3rem;
+  padding: 0.5rem;
+}
+
+label[for="file"]{
+  padding: var(--padding-m) var(--padding-l) var(--padding-l);
+  border-radius: var(--border-radius-medium);
+  color: black;
+  border: 3px dashed var(--color-primary-dark);
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+label[for="file"] input{
+  color: black;
+}
+input[type="file"]{
+  display: none;
+}
+
+label[for="file"] h4{
+  font-size: 1.25rem;
+}
+
+label[for="file"].drag{
+  background-color: rgba(56, 149, 211, 0.1);
+}
+
+label[for="file"].drop{
+  border: 3px solid var(--color-primary-dark);
+  background-color: rgba(56, 149, 211, 0.2);
+}
+
+.file__create form .addFile .file-block{
+  background-color: rgba(24, 144, 72, 0.2);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 0.5rem;
+  border-radius: 50px;
+  visibility: hidden;
+}
+
+.file__create form .addFile .file-block .file-info{
+  color: black;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  gap: 1rem;
+  padding: 0 0.5rem;
+  border-right: 3px solid rgba(24, 144, 72, 0.21);
+  white-space: nowrap;
+}
+
+.file__create form .addFile .file-block .file-info .file-name{
+  flex-grow: 1;
+  display: inline-block;
+  overflow: auto;
+  width: 200px;
+  scrollbar-width: none;
+}
+
+.file__create form .addFile .file-block .file-button{
+  font-weight: 700;
+  color: var(--color-error-dark);
+  padding: 0 1rem;
+}
+
+.file__create form .addFile .file-block .file-button:hover{
+  transform: scale(1.05);
+  filter: blur(0.4px);
+}

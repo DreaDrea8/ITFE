@@ -1,23 +1,23 @@
 # NEWS
 
-## Rien à dire
+| Date         | État     | Tag         | Déscription |
+|---           |---       | ---         | --- 
+| 01/10/2024   | 🪱 + ☕ | 0.0.0        | Il y a des bout de fonctinalitées sur différentes branches, les fonctionalité exigé ne sont pas implementées | 
 
-200 - Success
-200 OK: Request was successful.
-201 Created: Resource successfully created.
-204 No Content: Success with no content to return.
-300 - Redirection
-301 Moved Permanently: Resource has been permanently moved.
-302 Found: Temporary redirect.
-304 Not Modified: Resource not modified.
-400 - Client Errors
-400 Bad Request: Invalid request.
-401 Unauthorized: Authentication required.
-403 Forbidden: Access denied.
-404 Not Found: Resource not found.
-406 Not Acceptable: The requested resource cannot be provided in the format requested.
-409 Conflict: Request conflict.
-500 - Server Errors
-500 Internal Server Error: General server error.
-501 Not Implemented: Feature not supported.
-503 Service Unavailable: Service temporarily unavailable.
+Afin de répondre à l'exercice, on a continuer à push du code sur github
+
+| Date         | État                                               | Tag   | Déscription                                      |
+|---           |---                                                 | ---   | ---                                              |
+| 06/11/2027   | Théoriquement: 🦄 + ☕ // Réélement: 🦎 + ☕ + 🏭 | 0.1.0 | Les différentes fonctinalitées sont implementées | 
+| 16/11/2027   | 🚶 + 🏭                                            | 0.1.0 | Le projet répond au besoin initial avec une interface avancée | 
+
+## Légende
+
+| État                  | Symbole |
+|---                    |---      |
+| Ça marche pas         | 🪱      |
+| Ça marchouille        | 🦎      |
+| Ça marche             | 🚶      |
+| Ça vole               | 🦄      |
+| Ça fait le café       | ☕      |
+| C'est une usine à gaz | 🏭      |

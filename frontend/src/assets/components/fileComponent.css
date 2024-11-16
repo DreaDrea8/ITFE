@@ -1,0 +1,101 @@
+.file{
+  width: 350px;
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 2rem 2rem 2.5rem 2rem; 
+  border-radius: 40px;
+  background-color: rgba(240, 240, 240, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 1.5rem;
+}
+
+.file .file-header > h3{
+  justify-self: center;
+  font-size: 1.5rem;
+}
+
+.file h5{
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+  font-style: italic;
+}
+
+.file .file-info h4{
+  justify-self: center;
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.file .file-info p .info-name{
+  font-style: italic;
+}
+
+.file .file-info > p{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.file .file-info .link{
+  margin-top: 1rem;
+  position: relative;
+}
+
+.file .file-info .link .link-action{
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+}
+
+.file .file-info .link .link-action button{
+  height: 1.5rem;
+  padding: 6px;
+  width: 1.5rem;
+}
+
+
+.file .file-info .link p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: auto;
+  background-color: rgba(255, 255, 255, 0.151);
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.file .file-info .link p::-webkit-scrollbar {
+  width: 2px;
+}
+
+
+
+
+.file .file-action{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap ;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.file button {
+  height: 40px;
+  width: 40px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+}
+
+.file button.button-error{
+  margin: 0 0 0 auto;
+
+}
