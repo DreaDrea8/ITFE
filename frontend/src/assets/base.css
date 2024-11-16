@@ -20,6 +20,33 @@
   background: none;
 }
 
+
+:disabled{
+  pointer-events: none;
+  cursor: not-allowed;
+  filter: grayscale(100%);
+  overflow: hidden;
+  opacity: 0.3;
+}
+
+
+.bounce {
+  animation: bounce 1s infinite linear;
+}
+
+@keyframes bounce {
+  0% { top: 0; }
+  50% { top: -0.2em; }
+  70% { top: -0.3em; }
+  100% { top: 0; }
+}
+
+.disabled{
+  pointer-events: none; 
+  filter: brightness(50%) grayscale(50%);
+  overflow: hidden;
+}
+
 /* Common */
 
 body{
@@ -29,7 +56,7 @@ body{
   background-color: var(--color-dark);
 }
 
-.footer, .header, .signin, .home {
+.footer, .header, .home, .share {
   max-width: 2000px;
   width: 90%;
   margin: auto
@@ -66,3 +93,13 @@ p, button, input{
  line-height: var(--line-height-body);
 }
 
+form:invalid [type="submit"] {
+  filter: grayscale(100%);
+  cursor: not-allowed;
+}
+
+/* Active le bouton quand le formulaire est valide */
+form:valid [type="submit"] {
+  filter: grayscale(0%);
+  cursor: pointer;
+}

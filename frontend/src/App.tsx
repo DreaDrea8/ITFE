@@ -1,4 +1,5 @@
 import React from 'react'
+import { Provider } from 'react-redux'
 import BasicLayout from './layouts/basics'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 
@@ -6,14 +7,18 @@ import './assets/base.css'
 import './assets/reset.css'
 import './assets/button.css'
 import './assets/variable.css'
+
+import store from './redux/store'
 import AppProvider from './AppContext'
 import PrivateRoute from './PrivateRoute'
 import ErrorPage from './pages/error-page'
 import AuthLayout from './layouts/AuthLayout'
+import { ModalProvider } from './ModalContext'
 import HomeComponent from './components/HomeComponent'
 import SigninComponent from './components/SigninComponent'
 import SignupComponent from './components/SignupComponent'
-import DownloadComponent from './components/DownloadComponent'
+import DownloadComponent from './components/ShareComponent'
+import ShareComponent from './components/ShareComponent'
 
 const router = createBrowserRouter([
 	{
@@ -51,12 +56,12 @@ const router = createBrowserRouter([
 		errorElement: <ErrorPage />
 	},
 	{
-		path: 'download',
+		path: 'share',
 		element: <AuthLayout />,
 		children: [
 			{
 				path: '',
-				element: <DownloadComponent />
+				element: <ShareComponent />
 			}
 		],
 		errorElement: <ErrorPage />
@@ -69,7 +74,7 @@ const router = createBrowserRouter([
 				path: '',
 				element: (
 					<PrivateRoute>
-						<HomeComponent/><DownloadComponent/>
+						<HomeComponent/><ShareComponent/>
 					</PrivateRoute>
 				)
 			}
@@ -81,7 +86,11 @@ const router = createBrowserRouter([
 const App: React.FC = () => {
 	return (
 		<AppProvider>
-			<RouterProvider router={router} />
+			<Provider store={store}>
+				<ModalProvider>
+					<RouterProvider router={router} />
+				</ModalProvider>
+			</Provider>
 		</AppProvider>
 	)
 }

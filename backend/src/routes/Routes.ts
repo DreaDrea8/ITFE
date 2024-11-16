@@ -9,7 +9,7 @@ import { Service } from "@src/services/service"
 import { jsonContent } from "@src/types/jsonContent"
 import { Repository } from "@src/repositories/Repository"
 import { authMiddleware } from "@src/middleware/AuthMiddleware"
-import { DownloadFileWithLinkRoute } from "./DownloadFileWithLinkRoute"
+import { ShareFileWithLinkRoute } from "./ShareFileWithLinkRoute"
 
 export class Routes {
   router:Router = Router()
@@ -19,7 +19,7 @@ export class Routes {
   userRoute: UserRoute
   fileRoute: FileRoute
   linkRoute: LinkRoute
-  downloadFileWithLinkRoute: DownloadFileWithLinkRoute
+  shareFileWithLinkRoute: ShareFileWithLinkRoute
 
   constructor(repository: Repository, service: Service){
     this.service = service
@@ -28,10 +28,10 @@ export class Routes {
     this.userRoute = new UserRoute(repository, service)
     this.fileRoute = new FileRoute(repository, service)
     this.linkRoute = new LinkRoute(repository, service)
-    this.downloadFileWithLinkRoute = new DownloadFileWithLinkRoute(repository, service)
+    this.shareFileWithLinkRoute = new ShareFileWithLinkRoute(repository, service)
 
     this.router.use("/auth", this.authRoute.router)
-    this.router.use("/download", this.downloadFileWithLinkRoute.router)
+    this.router.use("/share", this.shareFileWithLinkRoute.router)
     this.router.use("/user", this.userRoute.router)
     this.router.use("/file", authMiddleware(repository, service), this.fileRoute.router)
     this.router.use("/link", authMiddleware(repository, service), this.linkRoute.router)

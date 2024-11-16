@@ -1,6 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './../assets/components/footerComponent.css'; 
+import React from 'react'
+import { Link } from 'react-router-dom'
+
+import './../assets/components/footerComponent.css' 
 
 const FooterComponent: React.FC = () => {
 	return (
@@ -61,7 +62,7 @@ const FooterComponent: React.FC = () => {
 					<li><Link to="/">Home</Link></li>
 					<li><Link to="/auth/signin">Features</Link></li>
 					<li><Link to="/auth/signup">Support</Link></li>
-					<li><a href="https://localhost/doc">Documetation</a></li>
+					<li><a href="https://localhost/doc">Documentation</a></li>
 					<li><a href="https://localhost/doc/api">Documentation API</a></li>
 					<li><a href="https://localhost/doc/news">Changelog</a></li>
 					<li><a href="https://localhost/admin-db">Administration BDD</a></li>
@@ -71,7 +72,7 @@ const FooterComponent: React.FC = () => {
 					<p>© Copyright 2024, All Rights Reserved</p>
 			</div>
 		</footer>
-	);
-};
+	)
+}
 
-export default FooterComponent;
+export default FooterComponent

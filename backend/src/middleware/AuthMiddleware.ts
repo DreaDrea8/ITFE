@@ -7,6 +7,7 @@ import { Service } from '@src/services/service'
 import { JWT_SECRET } from '@src/commons/config'
 import { jsonContent } from '@src/types/jsonContent'
 import { Repository } from '@src/repositories/Repository'
+import { decode } from 'punycode'
 
 
 export const authMiddleware = (repository: Repository, service: Service) => {

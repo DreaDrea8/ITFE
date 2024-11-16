@@ -1,0 +1,116 @@
+.file__update{
+  max-width: 2000px;
+  min-width: 500px;
+  width: 100%;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  gap: 0.5rem;
+  color: black;
+}
+
+.file__update input[type="text"], .file__update input[type="text"]::placeholder , .file__update legend{
+  color: black;
+}
+
+.file__update form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.file__update > p a{
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+.file__update form > div{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0.25rem;
+}
+
+.file__update form div label{
+  width: 100%;
+}
+
+.file__update form div label[for="description"]{
+  margin-right: calc(30px + 0.25rem);
+}
+
+.file__update form button, .file__update form > input{
+  align-self: center;
+  width: 30%;
+  margin-top: 1.5rem;
+}
+
+.file__update form div div{
+  display: flex;
+  flex-direction: column;
+  align-items:end;
+  position: relative;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+
+.file__update form .actions{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: end;
+}
+
+.file__update form .actions button{
+width: auto;
+}
+
+.file__update form .actions button.cancel{
+margin-right: auto;
+}
+
+
+.file__update form div div button{
+  height: 30px;
+  padding: 0;
+  width: 30px;
+  margin: 0 0 auto 0; 
+  border-radius: 9999px;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content:center;
+}
+
+.info-tooltip{
+  position: absolute !important;
+  display: none !important;
+  bottom: 90%;
+  left: 120%;
+  z-index: 1;
+  width: 300px;
+  padding: 1rem; 
+  border-radius: 10px;
+  background-color: hsl(0, 0%, 15%);
+
+}
+
+.btn-tooltip:hover ~ .info-tooltip, .btn-tooltip:focus ~ .info-tooltip{
+  display: block !important;
+}
+
+
+.file__update-confirm > p{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.file__update-confirm p .info-name{
+  font-style: italic;
+}

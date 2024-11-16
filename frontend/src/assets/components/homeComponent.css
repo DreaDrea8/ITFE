@@ -2,7 +2,7 @@
   margin: 2rem auto 4rem; 
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .home > div{
@@ -18,7 +18,6 @@
 }
 
 .home div .add-file{
-  margin: 1rem; 
   width: 300px;
   font-size: 1.2rem;
 }

@@ -21,6 +21,9 @@ export interface selectLinkListWhereDtoInterface {
   where: Array<whereInterface>
 }
 
+export interface updateRevokedAtLinkDtoInterface {
+  id: number
+}
 
 export class LinkRepository {
   service: Service
@@ -123,7 +126,7 @@ export class LinkRepository {
     }
   }
 
-  async getLinksWhere(dto: selectLinkListWhereDtoInterface): Promise<Link[]> {
+  async selectLinkListWhere(dto: selectLinkListWhereDtoInterface): Promise<Link[]> {
     try {
       const whereClauses: string[] = []
       const params: any[] = []
@@ -159,6 +162,19 @@ export class LinkRepository {
     } catch (error) {
       this.service.loggerService.error(ERRORS.SELECT_LINK_LIST_WHERE_REPOSITORY_FAIL)
       throw new Error(ERRORS.SELECT_LINK_LIST_WHERE_REPOSITORY_FAIL, { cause: error })
+    }
+  }
+
+  async updateRevokedAtLink(dto: updateRevokedAtLinkDtoInterface): Promise<boolean> {
+    try {
+      const updateQuery = `UPDATE link SET revoked_at = NOW() WHERE id = ?`
+      const params: any[] = [dto.id]
+      await this.database.promise().query(updateQuery, params)
+      
+      return Promise.resolve(true)
+    } catch (error) {
+      this.service.loggerService.error(ERRORS.UPDATE_REVOKED_AT_FILE_REPOSITORY_FAIL)
+      throw new Error(ERRORS.UPDATE_REVOKED_AT_FILE_REPOSITORY_FAIL, { cause: error })
     }
   }
 
